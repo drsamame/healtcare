@@ -63,7 +63,7 @@ export const PatientFormValidation = z.object({
 	familyMedicalHistory: z.string().optional(),
 	pastMedicalHistory: z.string().optional(),
 	identificationType: z.string().optional(),
-	identificationNumber: z.string(),
+	identificationNumber: z.string().optional(),
 	identificationDocument: z.custom<File[]>().optional(),
 	treatmentConsent: z
 		.boolean()

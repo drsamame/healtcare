@@ -1,0 +1,18 @@
+{
+    "sourceFile": "types/index.d.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1721428765848,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1721428765848,
+            "name": "Commit-0",
+            "content": "/* eslint-disable no-unused-vars */\r\n\r\ndeclare type SearchParamProps = {\r\n    params: { [key: string]: string };\r\n    searchParams: { [key: string]: string | string[] | undefined };\r\n  };\r\n  \r\n  declare type Gender = \"male\" | \"female\" | \"other\";\r\n  declare type Status = \"pending\" | \"scheduled\" | \"cancelled\";\r\n  \r\n  declare interface CreateUserParams {\r\n    name: string;\r\n    email: string;\r\n    phone: string;\r\n  }\r\n  declare interface User extends CreateUserParams {\r\n    $id: string;\r\n  }\r\n  \r\n  declare interface RegisterUserParams extends CreateUserParams {\r\n    userId: string;\r\n    birthDate: Date;\r\n    gender: Gender;\r\n    address: string;\r\n    occupation: string;\r\n    emergencyContactName: string;\r\n    emergencyContactNumber: string;\r\n    primaryPhysician: string;\r\n    insuranceProvider: string;\r\n    insurancePolicyNumber: string;\r\n    allergies: string | undefined;\r\n    currentMedication: string | undefined;\r\n    familyMedicalHistory: string | undefined;\r\n    pastMedicalHistory: string | undefined;\r\n    identificationType: string | undefined;\r\n    identificationNumber: string | undefined;\r\n    identificationDocument: FormData | undefined;\r\n    privacyConsent: boolean;\r\n  }\r\n  \r\n  declare type CreateAppointmentParams = {\r\n    userId: string;\r\n    patient: string;\r\n    primaryPhysician: string;\r\n    reason: string;\r\n    schedule: Date;\r\n    status: Status;\r\n    note: string | undefined;\r\n  };\r\n  \r\n  declare type UpdateAppointmentParams = {\r\n    appointmentId: string;\r\n    userId: string;\r\n    appointment: Appointment;\r\n    type: string;\r\n  };"
+        }
+    ]
+}

@@ -340,7 +340,7 @@ const RegisterForm = ({ user }: { user: User }) => {
 					<CustomFormField
 						fieldType={FormFieldType.CHECKBOX}
 						control={form.control}
-						name="privacyConsent"
+						name="privacyConcent"
 						label="Yo conciento las políticas de privacidad de la clínica."
 					/>
 				</section>

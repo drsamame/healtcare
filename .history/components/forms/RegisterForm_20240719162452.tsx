@@ -6,8 +6,9 @@ import { Form, FormControl } from '@/components/ui/form';
 import CustomFormField, { FormFieldType } from '../CustomFormField';
 import SubmitButton from '../SubmitButton';
 import { useState } from 'react';
+import { userFormValidation } from '@/lib/validation';
 import { useRouter } from 'next/navigation';
-import { registerPatient } from '@/lib/actions/patient.actions';
+import { createUser } from '@/lib/actions/patient.actions';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import {
 	Doctors,
