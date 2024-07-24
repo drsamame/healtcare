@@ -1,0 +1,34 @@
+{
+    "sourceFile": "app/page.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 4,
+            "patches": [
+                {
+                    "date": 1721777582332,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1721777597566,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,10 +1,10 @@\n import PatientForm from '@/components/forms/PatientForm';\r\n import Image from 'next/image';\r\n import Link from 'next/link';\r\n \r\n-export default function Home({ searchParams}: SearchParamProps) {\r\n-\tconsole.log(searchParams)\r\n+export default function Home({ searchParams }: SearchParamProps) {\r\n+\tconsole.log(searchParams);\r\n \treturn (\r\n \t\t<div className=\"flex h-screen max-h-screen\">\r\n \t\t\t<section className=\"remove-scrollbar container my-auto\">\r\n \t\t\t\t<div className=\"sub-container max-w-[496px]\">\r\n@@ -31,9 +31,9 @@\n \t\t\t\tsrc=\"/assets/images/onboarding-img.png\"\r\n \t\t\t\twidth={1000}\r\n \t\t\t\theight={1000}\r\n \t\t\t\talt=\"patient\"\r\n-\t\t\t\tclassName='side-image max-w-[50%]'\r\n+\t\t\t\tclassName=\"side-image max-w-[50%]\"\r\n \t\t\t/>\r\n \t\t</div>\r\n \t);\r\n }\r\n"
+                },
+                {
+                    "date": 1721777610889,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,10 +1,10 @@\n import PatientForm from '@/components/forms/PatientForm';\r\n import Image from 'next/image';\r\n import Link from 'next/link';\r\n \r\n-export default function Home({ searchParams }: SearchParamProps) {\r\n-\tconsole.log(searchParams);\r\n+export default function Home(page) {\r\n+\tconsole.log(page);\r\n \treturn (\r\n \t\t<div className=\"flex h-screen max-h-screen\">\r\n \t\t\t<section className=\"remove-scrollbar container my-auto\">\r\n \t\t\t\t<div className=\"sub-container max-w-[496px]\">\r\n"
+                },
+                {
+                    "date": 1721778132770,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,10 +1,10 @@\n import PatientForm from '@/components/forms/PatientForm';\r\n import Image from 'next/image';\r\n import Link from 'next/link';\r\n \r\n-export default function Home(page) {\r\n-\tconsole.log(page);\r\n+export default function Home({ searchParams }: SearchParamProps) {\r\n+\tconst isAdmin = searchParams?.admin === 'true';\r\n \treturn (\r\n \t\t<div className=\"flex h-screen max-h-screen\">\r\n \t\t\t<section className=\"remove-scrollbar container my-auto\">\r\n \t\t\t\t<div className=\"sub-container max-w-[496px]\">\r\n"
+                },
+                {
+                    "date": 1721778207583,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,12 +1,14 @@\n import PatientForm from '@/components/forms/PatientForm';\r\n+import PasskeyModal from '@/components/PasskeyModal';\r\n import Image from 'next/image';\r\n import Link from 'next/link';\r\n \r\n export default function Home({ searchParams }: SearchParamProps) {\r\n \tconst isAdmin = searchParams?.admin === 'true';\r\n \treturn (\r\n \t\t<div className=\"flex h-screen max-h-screen\">\r\n+\t\t\t{isAdmin && <PasskeyModal />}\r\n \t\t\t<section className=\"remove-scrollbar container my-auto\">\r\n \t\t\t\t<div className=\"sub-container max-w-[496px]\">\r\n \t\t\t\t\t<Image\r\n \t\t\t\t\t\talt=\"patient\"\r\n"
+                }
+            ],
+            "date": 1721777582332,
+            "name": "Commit-0",
+            "content": "import PatientForm from '@/components/forms/PatientForm';\r\nimport Image from 'next/image';\r\nimport Link from 'next/link';\r\n\r\nexport default function Home({ searchParams}: SearchParamProps) {\r\n\tconsole.log(searchParams)\r\n\treturn (\r\n\t\t<div className=\"flex h-screen max-h-screen\">\r\n\t\t\t<section className=\"remove-scrollbar container my-auto\">\r\n\t\t\t\t<div className=\"sub-container max-w-[496px]\">\r\n\t\t\t\t\t<Image\r\n\t\t\t\t\t\talt=\"patient\"\r\n\t\t\t\t\t\tsrc=\"/assets/icons/logo-full.svg\"\r\n\t\t\t\t\t\theight={1000}\r\n\t\t\t\t\t\twidth={1000}\r\n\t\t\t\t\t\tclassName=\"mb-12 h-10 w-fit\"\r\n\t\t\t\t\t></Image>\r\n\t\t\t\t\t<PatientForm />\r\n\t\t\t\t\t<div className=\"text-14-regular mt-20 flex justify-between\">\r\n\t\t\t\t\t\t<p className=\"justify-items-end text-dark-600 xl:text-left\">\r\n\t\t\t\t\t\t\t© 2024 CarePulse{' '}\r\n\t\t\t\t\t\t</p>\r\n\t\t\t\t\t\t<Link href=\"/?admin=true\" className=\"text-green-500\">\r\n\t\t\t\t\t\t\tAdmin\r\n\t\t\t\t\t\t</Link>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</section>\r\n\r\n\t\t\t<Image\r\n\t\t\t\tsrc=\"/assets/images/onboarding-img.png\"\r\n\t\t\t\twidth={1000}\r\n\t\t\t\theight={1000}\r\n\t\t\t\talt=\"patient\"\r\n\t\t\t\tclassName='side-image max-w-[50%]'\r\n\t\t\t/>\r\n\t\t</div>\r\n\t);\r\n}\r\n"
+        }
+    ]
+}

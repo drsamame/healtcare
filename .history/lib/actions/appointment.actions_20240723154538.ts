@@ -35,7 +35,7 @@ export const getAppointment = async (appointmentId: string) => {
 			appointmentId
 		);
 
-		return parseStringify(appointment.documents[0]);
+		return parseStringify(appointment);
 	} catch (error) {
 		console.error(
 			'An error occurred while retrieving the existing patient:',

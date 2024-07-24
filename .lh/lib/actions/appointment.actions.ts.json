@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 11,
+            "activePatchIndex": 14,
             "patches": [
                 {
                     "date": 1721679147429,
@@ -52,6 +52,18 @@
                 {
                     "date": 1721687778231,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,29 @@\n+'use server';\r\n+\r\n+import { ID } from 'node-appwrite';\r\n+import {\r\n+\tDATABASE_ID,\r\n+\tdatabases,\r\n+\tAPPOINTMENT_COLLECTION_ID,\r\n+} from '../appwite.config';\r\n+import { parseStringify } from '../utils';\r\n+\r\n+export const createAppointment = async (\r\n+\tappointmentData: CreateAppointmentParams\r\n+) => {\r\n+\tconsole.log(appointmentData);\r\n+\ttry {\r\n+\t\tconst newPatient = await databases.createDocument(\r\n+\t\t\tDATABASE_ID!,\r\n+\t\t\tAPPOINTMENT_COLLECTION_ID!,\r\n+\t\t\tID.unique(),\r\n+\t\t\t{\r\n+\t\t\t\t...appointmentData,\r\n+\t\t\t}\r\n+\t\t);\r\n+\r\n+\t\treturn parseStringify(newPatient);\r\n+\t} catch (error: any) {\r\n+\t\tconsole.log(error);\r\n+\t}\r\n+};\r\n"
+                },
+                {
+                    "date": 1721766285079,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,62 +26,21 @@\n \t} catch (error: any) {\r\n \t\tconsole.log(error);\r\n \t}\r\n };\r\n-'use server';\r\n \r\n-import { ID } from 'node-appwrite';\r\n-import {\r\n-\tDATABASE_ID,\r\n-\tdatabases,\r\n-\tPATIENT_COLLECTION_ID,\r\n-} from '../appwite.config';\r\n-import { parseStringify } from '../utils';\r\n-\r\n-export const createAppointment = async (\r\n-\tappointmentData: CreateAppointmentParams\r\n-) => {\r\n-\tconsole.log(appointmentData)\r\n+export const getAppointment = async (appointmentId: string) => {\r\n \ttry {\r\n-\t\tconst newPatient = await databases.createDocument(\r\n+\t\tconst appointment = await databases.getDocument(\r\n \t\t\tDATABASE_ID!,\r\n \t\t\tAPPOINTMENT_COLLECTION_ID!,\r\n-\t\t\tID.unique(),\r\n-\t\t\t{\r\n-\t\t\t\t...appointmentData,\r\n-\t\t\t}\r\n+\t\t\tappointmentId\r\n \t\t);\r\n \r\n-\t\treturn parseStringify(newPatient);\r\n-\t} catch (error: any) {\r\n-\t\tconsole.log(error)\r\n-\t}\r\n-};\r\n-'use server';\r\n-\r\n-import { ID } from 'node-appwrite';\r\n-import {\r\n-\tDATABASE_ID,\r\n-\tdatabases,\r\n-\tPATIENT_COLLECTION_ID,\r\n-} from '../appwite.config';\r\n-import { parseStringify } from '../utils';\r\n-\r\n-export const createAppointment = async (\r\n-\tappointmentData: CreateAppointmentParams\r\n-) => {\r\n-\tconsole.log(appointmentData)\r\n-\ttry {\r\n-\t\tconst newPatient = await databases.createDocument(\r\n-\t\t\tDATABASE_ID!,\r\n-\t\t\tPATIENT_COLLECTION_ID!,\r\n-\t\t\tID.unique(),\r\n-\t\t\t{\r\n-\t\t\t\t...appointmentData,\r\n-\t\t\t}\r\n+\t\treturn parseStringify(appointment);\r\n+\t} catch (error) {\r\n+\t\tconsole.error(\r\n+\t\t\t'An error occurred while retrieving the existing patient:',\r\n+\t\t\terror\r\n \t\t);\r\n-\r\n-\t\treturn parseStringify(newPatient);\r\n-\t} catch (error: any) {\r\n-\t\tconsole.log(error)\r\n \t}\r\n };\r\n"
+                },
+                {
+                    "date": 1721767538503,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,8 @@\n \r\n export const createAppointment = async (\r\n \tappointmentData: CreateAppointmentParams\r\n ) => {\r\n-\tconsole.log(appointmentData);\r\n \ttry {\r\n \t\tconst newPatient = await databases.createDocument(\r\n \t\t\tDATABASE_ID!,\r\n \t\t\tAPPOINTMENT_COLLECTION_ID!,\r\n"
+                },
+                {
+                    "date": 1721769471096,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,45 @@\n+'use server';\r\n+\r\n+import { ID } from 'node-appwrite';\r\n+import {\r\n+\tDATABASE_ID,\r\n+\tdatabases,\r\n+\tAPPOINTMENT_COLLECTION_ID,\r\n+} from '../appwite.config';\r\n+import { parseStringify } from '../utils';\r\n+\r\n+export const createAppointment = async (\r\n+\tappointmentData: CreateAppointmentParams\r\n+) => {\r\n+\ttry {\r\n+\t\tconst newPatient = await databases.createDocument(\r\n+\t\t\tDATABASE_ID!,\r\n+\t\t\tAPPOINTMENT_COLLECTION_ID!,\r\n+\t\t\tID.unique(),\r\n+\t\t\t{\r\n+\t\t\t\t...appointmentData,\r\n+\t\t\t}\r\n+\t\t);\r\n+\r\n+\t\treturn parseStringify(newPatient);\r\n+\t} catch (error: any) {\r\n+\t\tconsole.log(error);\r\n+\t}\r\n+};\r\n+\r\n+export const getAppointment = async (appointmentId: string) => {\r\n+\ttry {\r\n+\t\tconst appointment = await databases.getDocument(\r\n+\t\t\tDATABASE_ID!,\r\n+\t\t\tAPPOINTMENT_COLLECTION_ID!,\r\n+\t\t\tappointmentId\r\n+\t\t);\r\n+\r\n+\t\treturn parseStringify(appointment.documents[0]);\r\n+\t} catch (error) {\r\n+\t\tconsole.error(\r\n+\t\t\t'An error occurred while retrieving the existing patient:',\r\n+\t\t\terror\r\n+\t\t);\r\n+\t}\r\n+};\r\n"
                 }
             ],
             "date": 1721679147429,

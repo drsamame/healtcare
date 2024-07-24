@@ -47,22 +47,22 @@ export const formatDateTime = (
 	};
 
 	const formattedDateTime: string = new Date(dateString).toLocaleString(
-		'es-ES',
+		'en-US',
 		dateTimeOptions
 	);
 
 	const formattedDateDay: string = new Date(dateString).toLocaleString(
-		'es-ES',
+		'en-US',
 		dateDayOptions
 	);
 
 	const formattedDate: string = new Date(dateString).toLocaleString(
-		'es-ES',
+		'en-US',
 		dateOptions
 	);
 
 	const formattedTime: string = new Date(dateString).toLocaleString(
-		'es-ES',
+		'en-US',
 		timeOptions
 	);
 
