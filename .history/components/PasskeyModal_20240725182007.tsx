@@ -36,6 +36,7 @@ function PasskeyModal() {
 
 	useEffect(() => {
 		const accessKey = encryptedKey && decryptKey(encryptedKey);
+		console.log(path, accessKey)
 		if (path) {
 			if (accessKey === process.env.NEXT_PUBLIC_ADMIN_PASSKEY) {
 				setOpen(false);

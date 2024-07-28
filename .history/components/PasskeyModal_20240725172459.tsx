@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
 	InputOTP,
 	InputOTPGroup,
@@ -16,47 +16,21 @@ import {
 	AlertDialogHeader,
 	AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
-import { usePathname, useRouter } from 'next/navigation';
-import { decryptKey, encryptKey } from '@/lib/utils';
+import { useRouter } from 'next/navigation';
 
 function PasskeyModal() {
 	const [passKey, setPassKey] = useState('');
-	const path = usePathname();
 	const [open, setOpen] = useState(true);
 	const router = useRouter();
-	const [error, setError] = useState('');
+	const [error, setError] = useState(false);
 
 	const closeModal = () => {
 		router.push('/');
 		setOpen(false);
 	};
 
-	const encryptedKey =
-		typeof window !== 'undefined' ? localStorage.getItem('accessKey') : null;
-
-	useEffect(() => {
-		const accessKey = encryptedKey && decryptKey(encryptedKey);
-		if (path) {
-			if (accessKey === process.env.NEXT_PUBLIC_ADMIN_PASSKEY) {
-				setOpen(false);
-				router.push('/admin');
-			} else {
-				setOpen(true);
-			}
-		}
-	}, [encryptedKey]);
-
-	const validatePassKey = (
-		e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-	) => {
-		e.preventDefault();
-		if (passKey === process.env.NEXT_PUBLIC_ADMIN_PASSKEY) {
-			const encryptedKey = encryptKey(passKey);
-			localStorage.setItem('accessKey', encryptedKey);
-			setOpen(false);
-		} else {
-			setError('Clave de acceso incorrecta. Porfavor intenta otra vez');
-		}
+	const validatePassKey = (e) => {
+		console.log(e);
 	};
 	return (
 		<AlertDialog open={open} onOpenChange={setOpen}>
@@ -82,7 +56,7 @@ function PasskeyModal() {
 					<InputOTP
 						maxLength={6}
 						value={passKey}
-						onChange={(value) => setPassKey(value)}
+						onChange={(value) => setPassKey}
 					>
 						<InputOTPGroup className="shad-otp">
 							<InputOTPSlot className="shad-otp-slot" index={0} />

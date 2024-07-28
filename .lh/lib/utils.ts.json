@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 2,
+            "activePatchIndex": 3,
             "patches": [
                 {
                     "date": 1721254595795,
@@ -16,6 +16,10 @@
                 {
                     "date": 1721777257131,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -46,24 +46,24 @@\n \t\ttimeZone: timeZone, // use the provided timezone\r\n \t};\r\n \r\n \tconst formattedDateTime: string = new Date(dateString).toLocaleString(\r\n-\t\t'en-US',\r\n+\t\t'es-ES',\r\n \t\tdateTimeOptions\r\n \t);\r\n \r\n \tconst formattedDateDay: string = new Date(dateString).toLocaleString(\r\n-\t\t'en-US',\r\n+\t\t'es-ES',\r\n \t\tdateDayOptions\r\n \t);\r\n \r\n \tconst formattedDate: string = new Date(dateString).toLocaleString(\r\n-\t\t'en-US',\r\n+\t\t'es-ES',\r\n \t\tdateOptions\r\n \t);\r\n \r\n \tconst formattedTime: string = new Date(dateString).toLocaleString(\r\n-\t\t'en-US',\r\n+\t\t'es-ES',\r\n \t\ttimeOptions\r\n \t);\r\n \r\n \treturn {\r\n@@ -72,14 +72,4 @@\n \t\tdateOnly: formattedDate,\r\n \t\ttimeOnly: formattedTime,\r\n \t};\r\n };\r\n-import { type ClassValue, clsx } from \"clsx\"\r\n-import { twMerge } from \"tailwind-merge\"\r\n-\r\n-export function cn(...inputs: ClassValue[]) {\r\n-  return twMerge(clsx(inputs))\r\n-}\r\n-\r\n-export const parseStringify = (value: any) => JSON.parse(JSON.stringify(value));\r\n-\r\n-export const convertFileToUrl = (file: File) => URL.createObjectURL(file);\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1721947236637,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -72,4 +72,12 @@\n \t\tdateOnly: formattedDate,\r\n \t\ttimeOnly: formattedTime,\r\n \t};\r\n };\r\n+\r\n+export function encryptKey(passkey: string) {\r\n+\treturn btoa(passkey);\r\n+}\r\n+\r\n+export function decryptKey(passkey: string) {\r\n+\treturn atob(passkey);\r\n+}\r\n"
                 }
             ],
             "date": 1721254595795,

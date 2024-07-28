@@ -17,7 +17,7 @@ import {
 	AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 import { usePathname, useRouter } from 'next/navigation';
-import { decryptKey, encryptKey } from '@/lib/utils';
+import { encryptKey } from '@/lib/utils';
 
 function PasskeyModal() {
 	const [passKey, setPassKey] = useState('');
@@ -35,9 +35,8 @@ function PasskeyModal() {
 		typeof window !== 'undefined' ? localStorage.getItem('accessKey') : null;
 
 	useEffect(() => {
-		const accessKey = encryptedKey && decryptKey(encryptedKey);
 		if (path) {
-			if (accessKey === process.env.NEXT_PUBLIC_ADMIN_PASSKEY) {
+			if (passKey === process.env.NEXT_PUBLIC_ADMIN_PASSKEY) {
 				setOpen(false);
 				router.push('/admin');
 			} else {

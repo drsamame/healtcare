@@ -38,6 +38,9 @@ dependencies:
   date-fns:
     specifier: ^3.6.0
     version: 3.6.0
+  input-otp:
+    specifier: ^1.2.4
+    version: 1.2.4(react-dom@18.3.1)(react@18.3.1)
   lucide-react:
     specifier: ^0.403.0
     version: 0.403.0(react@18.3.1)
@@ -2277,6 +2280,16 @@ packages:
     resolution: {integrity: sha512-5cFv/kOZD7Ch0viprVkuYPDkAU7HBZYBx8QrIpQ6yXUWbAQ0+RQ8IIojDJOf/RO6FDJLL099HDSK2KoVZ2zevg==}
     dependencies:
       prop-types: 15.8.1
+    dev: false
+
+  /input-otp@1.2.4(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-md6rhmD+zmMnUh5crQNSQxq3keBRYvE3odbr4Qb9g2NWzQv9azi+t1a3X4TBTbh98fsGHgEEJlzbe1q860uGCA==}
+    peerDependencies:
+      react: ^16.8 || ^17.0 || ^18.0
+      react-dom: ^16.8 || ^17.0 || ^18.0
+    dependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
     dev: false
 
   /internal-slot@1.0.7:

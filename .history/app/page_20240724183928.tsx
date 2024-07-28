@@ -3,8 +3,11 @@ import PatientForm from '@/components/forms/PatientForm';
 import PasskeyModal from '@/components/PasskeyModal';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useParams  } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function Home({ searchParams }: SearchParamProps) {
+
 	const isAdmin = searchParams?.admin === 'true';
 
 	return (
@@ -21,7 +24,7 @@ export default function Home({ searchParams }: SearchParamProps) {
 						className="mb-12 h-10 w-fit"
 					></Image>
 					<PatientForm />
-					{isAdmin}
+					{JSON.stringify(searchParams)}
 					<div className="text-14-regular mt-20 flex justify-between">
 						<p className="justify-items-end text-dark-600 xl:text-left">
 							© 2024 CarePulse

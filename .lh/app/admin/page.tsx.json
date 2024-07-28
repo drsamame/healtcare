@@ -1,0 +1,18 @@
+{
+    "sourceFile": "app/admin/page.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1721954069376,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1721954069376,
+            "name": "Commit-0",
+            "content": "import React from 'react'\r\n\r\nfunction Admin() {\r\n  return (\r\n    <div>Admin</div>\r\n  )\r\n}\r\n\r\nexport default Admin"
+        }
+    ]
+}
