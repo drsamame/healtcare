@@ -1,0 +1,18 @@
+{
+    "sourceFile": "components/StartCard.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1722289376325,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1722289376325,
+            "name": "Commit-0",
+            "content": "import clsx from \"clsx\";\r\nimport Image from \"next/image\";\r\n\r\ntype StatCardProps = {\r\n  type: \"appointments\" | \"pending\" | \"cancelled\";\r\n  count: number;\r\n  label: string;\r\n  icon: string;\r\n};\r\n\r\nexport const StatCard = ({ count = 0, label, icon, type }: StatCardProps) => {\r\n  return (\r\n    <div\r\n      className={clsx(\"stat-card\", {\r\n        \"bg-appointments\": type === \"appointments\",\r\n        \"bg-pending\": type === \"pending\",\r\n        \"bg-cancelled\": type === \"cancelled\",\r\n      })}\r\n    >\r\n      <div className=\"flex items-center gap-4\">\r\n        <Image\r\n          src={icon}\r\n          height={32}\r\n          width={32}\r\n          alt=\"appointments\"\r\n          className=\"size-8 w-fit\"\r\n        />\r\n        <h2 className=\"text-32-bold text-white\">{count}</h2>\r\n      </div>\r\n\r\n      <p className=\"text-14-regular\">{label}</p>\r\n    </div>\r\n  );\r\n};"
+        }
+    ]
+}

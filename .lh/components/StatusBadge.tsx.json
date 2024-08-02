@@ -1,0 +1,34 @@
+{
+    "sourceFile": "components/StatusBadge.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 4,
+            "patches": [
+                {
+                    "date": 1722381641587,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1722407850595,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,41 @@\n+import clsx from 'clsx';\r\n+import Image from 'next/image';\r\n+\r\n+import { StatusIcon } from '@/constants';\r\n+\r\n+export const StatusBadge = ({ status }: { status: Status }) => {\r\n+\tlet statusText = '';\r\n+\tif (status === 'scheduled') {\r\n+\t\tstatusText = 'Cita programada';\r\n+\t} else if (status === 'pending') {\r\n+    statusText = 'Cita pendiente';\r\n+  }else if (status === 'cancelled') {\r\n+    statusText = 'Cita cancelada';\r\n+  }\r\n+\treturn (\r\n+\t\t<div\r\n+\t\t\tclassName={clsx('status-badge', {\r\n+\t\t\t\t'bg-green-600': status === 'scheduled',\r\n+\t\t\t\t'bg-blue-600': status === 'pending',\r\n+\t\t\t\t'bg-red-600': status === 'cancelled',\r\n+\t\t\t})}\r\n+\t\t>\r\n+\t\t\t<Image\r\n+\t\t\t\tsrc={StatusIcon[status]}\r\n+\t\t\t\talt=\"doctor\"\r\n+\t\t\t\twidth={24}\r\n+\t\t\t\theight={24}\r\n+\t\t\t\tclassName=\"h-fit w-3\"\r\n+\t\t\t/>\r\n+\t\t\t<p\r\n+\t\t\t\tclassName={clsx('text-12-semibold capitalize', {\r\n+\t\t\t\t\t'text-green-500': status === 'scheduled',\r\n+\t\t\t\t\t'text-blue-500': status === 'pending',\r\n+\t\t\t\t\t'text-red-500': status === 'cancelled',\r\n+\t\t\t\t})}\r\n+\t\t\t>\r\n+\t\t\t\t{status}\r\n+\t\t\t</p>\r\n+\t\t</div>\r\n+\t);\r\n+};\r\n"
+                },
+                {
+                    "date": 1722407856765,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -33,42 +33,9 @@\n \t\t\t\t\t'text-blue-500': status === 'pending',\r\n \t\t\t\t\t'text-red-500': status === 'cancelled',\r\n \t\t\t\t})}\r\n \t\t\t>\r\n-\t\t\t\t{status}\r\n+\t\t\t\t{statusText}\r\n \t\t\t</p>\r\n \t\t</div>\r\n \t);\r\n };\r\n-import clsx from \"clsx\";\r\n-import Image from \"next/image\";\r\n-\r\n-import { StatusIcon } from \"@/constants\";\r\n-\r\n-export const StatusBadge = ({ status }: { status: Status }) => {\r\n-  return (\r\n-    <div\r\n-      className={clsx(\"status-badge\", {\r\n-        \"bg-green-600\": status === \"scheduled\",\r\n-        \"bg-blue-600\": status === \"pending\",\r\n-        \"bg-red-600\": status === \"cancelled\",\r\n-      })}\r\n-    >\r\n-      <Image\r\n-        src={StatusIcon[status]}\r\n-        alt=\"doctor\"\r\n-        width={24}\r\n-        height={24}\r\n-        className=\"h-fit w-3\"\r\n-      />\r\n-      <p\r\n-        className={clsx(\"text-12-semibold capitalize\", {\r\n-          \"text-green-500\": status === \"scheduled\",\r\n-          \"text-blue-500\": status === \"pending\",\r\n-          \"text-red-500\": status === \"cancelled\",\r\n-        })}\r\n-      >\r\n-        {status}\r\n-      </p>\r\n-    </div>\r\n-  );\r\n\\ No newline at end of file\n-};\n"
+                },
+                {
+                    "date": 1722407870519,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,13 +5,13 @@\n \r\n export const StatusBadge = ({ status }: { status: Status }) => {\r\n \tlet statusText = '';\r\n \tif (status === 'scheduled') {\r\n-\t\tstatusText = 'Cita programada';\r\n+\t\tstatusText = 'Programada';\r\n \t} else if (status === 'pending') {\r\n-    statusText = 'Cita pendiente';\r\n+    statusText = 'Pendiente';\r\n   }else if (status === 'cancelled') {\r\n-    statusText = 'Cita cancelada';\r\n+    statusText = 'Cancelada';\r\n   }\r\n \treturn (\r\n \t\t<div\r\n \t\t\tclassName={clsx('status-badge', {\r\n"
+                },
+                {
+                    "date": 1722411849179,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,16 +3,17 @@\n \r\n import { StatusIcon } from '@/constants';\r\n \r\n export const StatusBadge = ({ status }: { status: Status }) => {\r\n-\tlet statusText = '';\r\n-\tif (status === 'scheduled') {\r\n-\t\tstatusText = 'Programada';\r\n-\t} else if (status === 'pending') {\r\n-    statusText = 'Pendiente';\r\n-  }else if (status === 'cancelled') {\r\n-    statusText = 'Cancelada';\r\n-  }\r\n+\tlet statusText =\r\n+\t\tstatus === 'scheduled'\r\n+\t\t\t? 'Programada'\r\n+\t\t\t: status === 'pending'\r\n+\t\t\t? 'Pendiente'\r\n+\t\t\t: status === 'cancelled'\r\n+\t\t\t? 'Cancelada'\r\n+\t\t\t: '';\r\n+\r\n \treturn (\r\n \t\t<div\r\n \t\t\tclassName={clsx('status-badge', {\r\n \t\t\t\t'bg-green-600': status === 'scheduled',\r\n"
+                }
+            ],
+            "date": 1722381641587,
+            "name": "Commit-0",
+            "content": "import clsx from \"clsx\";\r\nimport Image from \"next/image\";\r\n\r\nimport { StatusIcon } from \"@/constants\";\r\n\r\nexport const StatusBadge = ({ status }: { status: Status }) => {\r\n  return (\r\n    <div\r\n      className={clsx(\"status-badge\", {\r\n        \"bg-green-600\": status === \"scheduled\",\r\n        \"bg-blue-600\": status === \"pending\",\r\n        \"bg-red-600\": status === \"cancelled\",\r\n      })}\r\n    >\r\n      <Image\r\n        src={StatusIcon[status]}\r\n        alt=\"doctor\"\r\n        width={24}\r\n        height={24}\r\n        className=\"h-fit w-3\"\r\n      />\r\n      <p\r\n        className={clsx(\"text-12-semibold capitalize\", {\r\n          \"text-green-500\": status === \"scheduled\",\r\n          \"text-blue-500\": status === \"pending\",\r\n          \"text-red-500\": status === \"cancelled\",\r\n        })}\r\n      >\r\n        {status}\r\n      </p>\r\n    </div>\r\n  );\r\n};"
+        }
+    ]
+}

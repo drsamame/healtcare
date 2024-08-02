@@ -1,0 +1,18 @@
+{
+    "sourceFile": "components/SubmitButton.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1722465492551,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1722465492551,
+            "name": "Commit-0",
+            "content": "import React from 'react';\r\nimport { Button } from '@/components/ui/button';\r\nimport Image from 'next/image';\r\n\r\ninterface Props {\r\n\tisLoading: boolean;\r\n\tclassName?: string;\r\n\tchildren: React.ReactNode;\r\n}\r\n\r\nfunction SubmitButton({ isLoading, className, children }: Props) {\r\n\treturn (\r\n\t\t<Button\r\n\t\t\ttype=\"submit\"\r\n\t\t\tdisabled={isLoading}\r\n\t\t\tclassName={className ?? 'shad-primary-btn w-full'}\r\n\t\t>\r\n\t\t\t{isLoading ? (\r\n\t\t\t\t<div className=\"flex items-center gap-4 \">\r\n\t\t\t\t\t<Image\r\n\t\t\t\t\t\tsrc=\"/assets/icons/loader.svg\"\r\n\t\t\t\t\t\talt=\"loader\"\r\n\t\t\t\t\t\twidth={24}\r\n\t\t\t\t\t\theight={24}\r\n\t\t\t\t\t\tclassName=\"animate-spin\"\r\n\t\t\t\t\t/>\r\n\t\t\t\t\tCargando...\r\n\t\t\t\t</div>\r\n\t\t\t) : (\r\n\t\t\t\tchildren\r\n\t\t\t)}\r\n\t\t</Button>\r\n\t);\r\n}\r\n\r\nexport default SubmitButton;\r\n"
+        }
+    ]
+}
