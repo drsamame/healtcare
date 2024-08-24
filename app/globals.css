@@ -279,6 +279,18 @@
   .date-picker {
     @apply overflow-hidden border-transparent w-full placeholder:text-dark-600  h-11 text-14-medium rounded-md px-3 outline-none !important;
   }
+
+  .shad-tab-list{
+    @apply  items-center justify-center rounded-lg  p-1 grid w-full grid-cols-2 bg-dark-500 mb-8;
+  }
+
+  .shad-btn-tab{
+    @apply rounded;
+  }
+
+  .shad-avatar{
+    @apply rounded bg-green-500 font-bold cursor-pointer;
+  }
 }
 
 /* =====  REACT-DATEPICKER OVERRIDES */

@@ -11,14 +11,40 @@ export const {
 	NEXT_PUBLIC_ENDPOINT,
 } = process.env;
 
-const client = new sdk.Client();
+const adminClient = new sdk.Client();
 
-client
+adminClient
 	.setEndpoint(NEXT_PUBLIC_ENDPOINT!)
 	.setProject(PROJECT_ID!)
 	.setKey(API_KEY!);
 
-export const databases = new sdk.Databases(client);
-export const storage = new sdk.Storage(client);
-export const messaging = new sdk.Messaging(client);
-export const users = new sdk.Users(client);
+export const databases = new sdk.Databases(adminClient);
+export const storage = new sdk.Storage(adminClient);
+export const messaging = new sdk.Messaging(adminClient);
+export const account = new sdk.Account(adminClient);
+
+export const createAdminClient = async () => {
+	adminClient
+		.setEndpoint(NEXT_PUBLIC_ENDPOINT!)
+		.setProject(PROJECT_ID!)
+		.setKey(API_KEY!);
+
+	return {
+		get account() {
+			return new sdk.Account(adminClient);
+		},
+	};
+};
+
+export const createSessionClient = async (session: any) => {
+	const sessionClient = new sdk.Client();
+	sessionClient.setEndpoint(NEXT_PUBLIC_ENDPOINT!).setProject(PROJECT_ID!);
+	if (session) {
+		sessionClient.setSession(session);
+	}
+	return {
+		get accountUser() {
+			return new sdk.Account(sessionClient);
+		},
+	};
+};

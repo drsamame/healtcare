@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans } from 'next/font/google';
-import { ThemeProvider } from "@/components/ui/theme-provider"
+import { ThemeProvider } from '@/components/ui/theme-provider';
+import SessionAuthProvider from '@/context/SessionAuthProvider';
 import './globals.css';
 
 import { cn } from '@/lib/utils';
@@ -18,8 +19,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
 	children,
+	session,
 }: Readonly<{
 	children: React.ReactNode;
+	session: any;
 }>) {
 	return (
 		<html lang="es" suppressHydrationWarning>
@@ -35,7 +38,9 @@ export default function RootLayout({
 					enableSystem
 					disableTransitionOnChange
 				>
-					{children}
+					<SessionAuthProvider session={session}>
+						{children}
+					</SessionAuthProvider>
 				</ThemeProvider>
 			</body>
 		</html>

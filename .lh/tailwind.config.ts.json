@@ -1,0 +1,18 @@
+{
+    "sourceFile": "tailwind.config.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1724402374033,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1724402374033,
+            "name": "Commit-0",
+            "content": "import type { Config } from \"tailwindcss\";\r\n\r\nconst { fontFamily } = require(\"tailwindcss/defaultTheme\");\r\n\r\nconst config = {\r\n  darkMode: [\"class\"],\r\n  content: [\r\n    \"./pages/**/*.{ts,tsx}\",\r\n    \"./components/**/*.{ts,tsx}\",\r\n    \"./app/**/*.{ts,tsx}\",\r\n    \"./src/**/*.{ts,tsx}\",\r\n  ],\r\n  prefix: \"\",\r\n  theme: {\r\n    container: {\r\n      center: true,\r\n      padding: \"2rem\",\r\n      screens: {\r\n        \"2xl\": \"1400px\",\r\n      },\r\n    },\r\n    extend: {\r\n      colors: {\r\n        green: {\r\n          400: \"#24AE7C\",\r\n          500: \"#004c8e\",\r\n          600: \"#0D2A1F\",\r\n        },\r\n        blue: {\r\n          500: \"#79B5EC\",\r\n          600: \"#152432\",\r\n        },\r\n        red: {\r\n          500: \"#F37877\", \r\n          600: \"#3E1716\",\r\n          700: \"#F24E43\",\r\n        },\r\n        light: {\r\n          200: \"#E8E9E9\",\r\n        },\r\n        dark: {\r\n          200: \"#0D0F10\",\r\n          300: \"#131619\",\r\n          400: \"#1A1D21\",\r\n          500: \"#363A3D\",\r\n          600: \"#76828D\",\r\n          700: \"#ABB8C4\",\r\n        },\r\n      },\r\n      fontFamily: {\r\n        sans: [\"var(--font-sans)\", ...fontFamily.sans],\r\n      },\r\n      backgroundImage: {\r\n        appointments: \"url('/assets/images/appointments-bg.png')\",\r\n        pending: \"url('/assets/images/pending-bg.png')\",\r\n        cancelled: \"url('/assets/images/cancelled-bg.png')\",\r\n      },\r\n      keyframes: {\r\n        \"accordion-down\": {\r\n          from: { height: \"0\" },\r\n          to: { height: \"var(--radix-accordion-content-height)\" },\r\n        },\r\n        \"accordion-up\": {\r\n          from: { height: \"var(--radix-accordion-content-height)\" },\r\n          to: { height: \"0\" },\r\n        },\r\n        \"caret-blink\": {\r\n          \"0%,70%,100%\": { opacity: \"1\" },\r\n          \"20%,50%\": { opacity: \"0\" },\r\n        },\r\n      },\r\n      animation: {\r\n        \"accordion-down\": \"accordion-down 0.2s ease-out\",\r\n        \"accordion-up\": \"accordion-up 0.2s ease-out\",\r\n        \"caret-blink\": \"caret-blink 1.25s ease-out infinite\",\r\n      },\r\n    },\r\n  },\r\n  plugins: [require(\"tailwindcss-animate\")],\r\n} satisfies Config;\r\n\r\nexport default config;"
+        }
+    ]
+}

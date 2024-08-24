@@ -1,0 +1,104 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  user
+  admin
+}
+
+enum RegTypeForm {
+  adult
+  child
+}
+
+enum Status {
+  cancelled
+  pending
+  scheduled
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  cellphone     String?
+  password      String?
+  emailVerified DateTime?
+  image         String?
+  role          Role      @default(user)
+
+  accounts Account[]
+  patients Patients[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
+}
+
+model Appointment {
+  id                 String   @id @default(cuid())
+  schedule           DateTime
+  aditionalInfo      String?
+  specialty          String
+  userId             String
+  status             Status
+  cancellationReason String?
+  patientId          String
+
+  patient Patients @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+}
+
+model Patients {
+  id                     String      @id @default(cuid())
+  name                   String
+  email                  String
+  phone                  String
+  gender                 String
+  type                   RegTypeForm @default(adult)
+  civilStatus            String?
+  religion               String?
+  academicGrade          String?
+  occupation             String?
+  identificationType     String
+  identificationNumber   String
+  emergencyContactNumber String
+  emergencyContactName   String
+  address                String
+  birthDate              DateTime
+  placeOfBirth           String
+  privacyConsent         Boolean
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId       String
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  appointments Appointment[]
+}
