@@ -13,9 +13,8 @@ import {
 } from '@/lib/actions/appointment.actions';
 import { useRouter } from 'next/navigation';
 import { SelectItem } from '@/components/ui/select';
-import { Doctors } from '@/constants';
+import { Services } from '@/constants';
 import Image from 'next/image';
-import { Appointment } from '@/types/appwrite.types';
 
 interface Props {
 	userId: string;
@@ -40,11 +39,10 @@ const AppointmentForm = ({
 	const form = useForm<z.infer<typeof appointmentSchema>>({
 		resolver: zodResolver(appointmentSchema),
 		defaultValues: {
-			primaryPhysician: appointment && appointment.primaryPhysician,
 			cancellationReason: appointment?.cancellationReason || '',
 			schedule: appointment ? new Date(appointment.schedule) : new Date(),
-			reason: appointment ? appointment.reason : '',
-			note: appointment ? appointment.note : '',
+			aditionalInfo: appointment ? appointment.aditionalInfo! : '',
+			specialty: appointment ? appointment.specialty : '',
 		},
 	});
 
@@ -70,30 +68,29 @@ const AppointmentForm = ({
 				const appointmentData = {
 					userId,
 					patient: patientId,
-					primaryPhysician: values.primaryPhysician,
 					schedule: new Date(values.schedule),
-					reason: values.reason!,
-					note: values.note,
+					aditionalInfo: values.aditionalInfo!,
 					status: status as Status,
+					specialty: values.specialty,
 				};
 				const appointment = await createAppointment(appointmentData);
 				if (appointment) {
 					form.reset();
-					router.push(
-						`/patients/${userId}/new-appointment/success?appointmentId=${appointment.$id}`
-					);
+					console.log(appointment);
+					router.push(`/patients/${appointment?.createdId}/new-appointment/success`);
 				}
 			} else {
 				const appointmentToUpdate = {
 					userId,
-					appointmentId: appointment?.$id!,
+					appointmentId: appointment!.id,
+					type: type!,
 					appointment: {
-						primaryPhysician: values.primaryPhysician,
+						specialty: values.specialty,
 						schedule: new Date(values.schedule),
 						status: status as Status,
-						cancellationReason: values.cancellationReason,
+						aditionalInfo: values.aditionalInfo!,
+						cancellationReason: values.cancellationReason!,
 					},
-					type,
 				};
 
 				const updatedAppointment = await updateAppointment(appointmentToUpdate);
@@ -116,7 +113,7 @@ const AppointmentForm = ({
 			buttonLabel = 'Cancelar cita';
 			break;
 		case 'create':
-			buttonLabel = 'Crear cita';
+			buttonLabel = 'Separa tu atención';
 			break;
 		case 'schedule':
 			buttonLabel = 'Agendar cita';
@@ -127,12 +124,14 @@ const AppointmentForm = ({
 		<Form {...form}>
 			<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 flex-1">
 				{type === 'create' && (
-					<section className="mb-12 space-y-4">
-						<h1 className="header">Nueva cita!</h1>
-						<p className="text-dark-700">
-							Solicita una nueva cita en 10 segundos
-						</p>
-					</section>
+					<>
+						<section className="mb-12 space-y-4">
+							<h1 className="header">Nueva cita!</h1>
+							<p className="text-dark-700">
+								Solicita una nueva cita en 10 segundos
+							</p>
+						</section>
+					</>
 				)}
 
 				{type !== 'cancel' && (
@@ -140,11 +139,11 @@ const AppointmentForm = ({
 						<CustomFormField
 							fieldType={FormFieldType.SELECT}
 							control={form.control}
-							name="primaryPhysician"
-							label="Médico primario"
-							placeholder="Seleccione un médico"
+							name="specialty"
+							label="Especialidad"
+							placeholder="Seleccione la especialidad para su consulta"
 						>
-							{Doctors.map((doctor, i) => (
+							{Services.map((doctor, i) => (
 								<SelectItem key={doctor.name + i} value={doctor.name}>
 									<div className="flex cursor-pointer items-center gap-2">
 										<Image
@@ -154,7 +153,11 @@ const AppointmentForm = ({
 											alt="doctor"
 											className="rounded-full border border-dark-500"
 										/>
-										<p>{doctor.name}</p>
+										<p>
+											{doctor.name} | Consulta a S/{doctor.price}
+											{Number(doctor.discount) > 0 &&
+												` (con ${doctor.discount}% dscto.)`}
+										</p>
 									</div>
 								</SelectItem>
 							))}
@@ -164,24 +167,16 @@ const AppointmentForm = ({
 							control={form.control}
 							name="schedule"
 							placeholder="Fecha y Hora de la cita"
-							showTimeSelect
-							dateFormat="MM/dd/yyyy - h:mm aa"
+							dateFormat="dd/MM/yyyy"
 						></CustomFormField>
 
 						<div className="flex flex-col gap-6 xl:flex-row">
 							<CustomFormField
 								fieldType={FormFieldType.TEXTAREA}
 								control={form.control}
-								name="reason"
-								label="Motivo de la cita"
+								name="aditionalInfo"
+								label="Observación adicional"
 								placeholder='Ej. "Dolor de cabeza intenso"'
-							></CustomFormField>
-							<CustomFormField
-								fieldType={FormFieldType.TEXTAREA}
-								control={form.control}
-								name="note"
-								label="Notas"
-								placeholder='Ej. "Tomar medicamento cada 8 horas"'
 							></CustomFormField>
 						</div>
 					</>

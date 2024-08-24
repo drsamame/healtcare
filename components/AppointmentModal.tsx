@@ -11,9 +11,7 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from '@/components/ui/dialog';
-import { Appointment } from '@/types/appwrite.types';
 
-// import { AppointmentForm } from './forms/AppointmentForm';
 
 import 'react-datepicker/dist/react-datepicker.css';
 import AppointmentForm from './forms/AppointmentForm';
@@ -46,7 +44,7 @@ export const AppointmentModal = ({
 			</DialogTrigger>
 			<DialogContent className="shad-dialog sm:max-w-md">
 				<DialogHeader className="mb-4 space-y-3">
-					<DialogTitle className='capitalize'>{`${typeText} cita`}</DialogTitle>
+					<DialogTitle>{`${typeText} cita`}</DialogTitle>
 					<DialogDescription className='lowercase first-letter:uppercase'>
 						Por favor completar los detalles para {typeText} la cita
 					</DialogDescription>

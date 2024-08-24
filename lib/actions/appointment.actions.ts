@@ -1,112 +1,120 @@
 'use server';
 
-import { ID, Query } from 'node-appwrite';
-import {
-	DATABASE_ID,
-	databases,
-	APPOINTMENT_COLLECTION_ID,
-} from '../appwite.config';
-import { formatDateTime, parseStringify } from '../utils';
-import { Appointment } from '@/types/appwrite.types';
 import { revalidatePath } from 'next/cache';
+import { CreateAppointmentSchema } from '../validation';
+import { db } from '../db';
+import { AuthError } from 'next-auth';
 
 export const createAppointment = async (
 	appointmentData: CreateAppointmentParams
 ) => {
 	try {
-		const newPatient = await databases.createDocument(
-			DATABASE_ID!,
-			APPOINTMENT_COLLECTION_ID!,
-			ID.unique(),
-			{
-				...appointmentData,
-			}
-		);
+		const { data, success } =
+			CreateAppointmentSchema.safeParse(appointmentData);
 
-		return parseStringify(newPatient);
-	} catch (error: any) {
-		console.log(error);
+		if (!success) {
+			return {
+				error: 'Invalid data',
+			};
+		}
+		const { id } = await db.appointment.create({
+			data: {
+				...data,
+				userId: appointmentData.userId,
+				patientId: appointmentData.patient,
+				status: appointmentData.status,
+			},
+		});
+		return { success: true, createdId: id };
+	} catch (error) {
+		if (error instanceof AuthError) {
+			return { error: error.cause?.err?.message };
+		}
+		return { error: 'error 500' };
 	}
 };
 
-export const getAppointment = async (appointmentId: string) => {
-	console.log(appointmentId)
+export const getAppointment = async (id: string) => {
 	try {
-		const appointment = await databases.getDocument(
-			DATABASE_ID!,
-			APPOINTMENT_COLLECTION_ID!,
-			appointmentId
-		);
-		console.log(appointment)
-
-		return parseStringify(appointment);
-	} catch (error) {
-		console.error(
-			'An error occurred while retrieving the existing patient:',
-			error
-		);
+		const patient = await db.appointment.findFirst({
+			where: {
+				id: id,
+			},
+			select: {
+				id: true,
+				specialty: true,
+				schedule: true,
+			},
+		});
+		if (!patient) return { error: 'Patient not found' };
+		return {
+			success: true,
+			data: {
+				...patient,
+			},
+		};
+	} catch (error: any) {
+		return { error: 'error 500' };
 	}
 };
 
 export const getRecentAppointmentList = async () => {
 	try {
-		const appointments = await databases.listDocuments(
-			DATABASE_ID!,
-			APPOINTMENT_COLLECTION_ID!,
-			[Query.orderDesc('$createdAt')]
-		);
-
+		const appointments = await db.appointment.findMany({
+			orderBy: [
+				{
+					schedule: 'desc',
+				},
+			],
+			include: {
+				patient: true, // All posts where authorId == 20
+			},
+		});
 		const initialCounts = {
 			scheduledCount: 0,
 			pendingCount: 0,
 			cancelledCount: 0,
 		};
-
-		const counts = (appointments.documents as Appointment[]).reduce(
-			(acc, appointment) => {
-				switch (appointment.status) {
-					case 'scheduled':
-						acc.scheduledCount++;
-						break;
-					case 'pending':
-						acc.pendingCount++;
-						break;
-					case 'cancelled':
-						acc.cancelledCount++;
-						break;
-				}
-				return acc;
-			},
-			initialCounts
-		);
-
+		const counts = appointments.reduce((acc, appointment) => {
+			switch (appointment.status) {
+				case 'scheduled':
+					acc.scheduledCount++;
+					break;
+				case 'pending':
+					acc.pendingCount++;
+					break;
+				case 'cancelled':
+					acc.cancelledCount++;
+					break;
+			}
+			return acc;
+		}, initialCounts);
 		const data = {
-			totalCount: appointments.total,
+			totalCount: appointments.length,
 			...counts,
-			documents: appointments.documents,
+			appointments,
 		};
-
-		return parseStringify(data);
+		return { success: true, data };
 	} catch (error) {
-		console.error(
-			'An error occurred while retrieving the recent appointments:',
-			error
-		);
+		console.log(error);
+		if (error instanceof AuthError) {
+			return { error: error.cause?.err?.message };
+		}
+		return { error: 'error 500' };
 	}
 };
 
 export const updateAppointment = async ({
 	appointmentId,
 	appointment,
-	type,
 }: UpdateAppointmentParams) => {
+	console.log('se loqueo la tabla');
 	try {
-		const updatedAppointment = await databases.updateDocument(
-			DATABASE_ID!,
-			APPOINTMENT_COLLECTION_ID!,
-			appointmentId,
-			appointment
-		);
+		const updatedAppointment = await db.appointment.update({
+			where: { id: appointmentId },
+			data: appointment,
+		});
+		console.log(updatedAppointment);
 
 		if (!updatedAppointment) throw new Error('Appointment not found');
 
@@ -120,9 +128,9 @@ export const updateAppointment = async ({
 		// 		  } is cancelled. Reason:  ${appointment.cancellationReason}`
 		// }.`;
 		//await sendSMSNotification(userId, smsMessage);
-
+		// console.log(updatedAppointment)
 		revalidatePath('/admin');
-		return parseStringify(updatedAppointment);
+		return updatedAppointment;
 	} catch (error) {
 		console.error('An error occurred while scheduling an appointment:', error);
 	}

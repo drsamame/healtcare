@@ -1,20 +1,36 @@
 import { z } from 'zod';
 
-export const userFormValidation = z.object({
-	name: z
-		.string()
-		.min(2, 'Debe tener al menos 2 caracteres.')
-		.max(50, 'Debe tener menos de 50 caracteres.'),
+export const userFormValidation = z
+	.object({
+		name: z
+			.string()
+			.min(2, 'Debe tener al menos 2 caracteres.')
+			.max(50, 'Debe tener menos de 50 caracteres.'),
+		email: z.string().email('Debe ser un correo válido.'),
+		password: z
+			.string()
+			.min(8, { message: 'Debe tener minimo 8 caracteres.' })
+			.max(15, { message: 'Debe tener máximo 15 caracteres.' })
+			.refine((password) => /[A-Z]/.test(password), {
+				message: 'Debe tener al menos una Mayúscula.',
+			})
+			.refine((password) => /[0-9]/.test(password), {
+				message: 'Debe tener al menos un número',
+			}),
+		repeatpassword: z.string(),
+	})
+	.refine((data) => data.password === data.repeatpassword, {
+		message: 'Las contraseñas no coinciden',
+		path: ['repeatpassword'],
+	});
+
+export const userLoginFormValidation = z.object({
 	email: z.string().email('Debe ser un correo válido.'),
-	phone: z
-		.string()
-		.refine(
-			(phone) => /^\+[1-9]\d{1,14}$/.test(phone),
-			'Número de teléfono inválido.'
-		),
+	password: z.string(),
 });
 
 export const PatientFormValidation = z.object({
+	userId: z.string(),
 	name: z
 		.string()
 		.min(2, 'Nombre debe tener al menos 2 caracteres')
@@ -27,7 +43,18 @@ export const PatientFormValidation = z.object({
 			'Número de teléfono inválido'
 		),
 	birthDate: z.coerce.date(),
+	civilStatus: z.enum(['single', 'married', 'divorced', 'widowed']),
 	gender: z.enum(['male', 'female', 'other']),
+	type: z.enum(['adult', 'child']),
+	religion: z.string().or(z.literal('')),
+	placeOfBirth: z
+		.string()
+		.min(2, 'Lugar de nacimiento debe tener al menos 2 caracteres'),
+	academicGrade: z.string(),
+	identificationType: z.string(),
+	identificationNumber: z
+		.string()
+		.min(8, 'N identificación debe tener al menos 8 dígitos'),
 	address: z
 		.string()
 		.min(5, 'Dirección debe tener al menos 5 caracteres')
@@ -47,36 +74,6 @@ export const PatientFormValidation = z.object({
 			(emergencyContactNumber) => /^\+\d{10,15}$/.test(emergencyContactNumber),
 			'Número de teléfono de contacto de emergencia inválido'
 		),
-	primaryPhysician: z.string().min(2, 'Seleccione un médico'),
-	insuranceProvider: z
-		.string()
-		.min(2, 'Numbero de póliza debe tener al menos 2 caracteres')
-		.max(50, 'Numbero de póliza debe tener menos de 50 caracteres')
-		.or(z.literal('')),
-	insurancePolicyNumber: z
-		.string()
-		.min(2, 'Numbero de póliza debe tener al menos 2 caracteres')
-		.max(50, 'Numbero de póliza debe tener menos de 50 caracteres')
-		.or(z.literal('')),
-	allergies: z.string().optional(),
-	currentMedication: z.string().optional(),
-	familyMedicalHistory: z.string().optional(),
-	pastMedicalHistory: z.string().optional(),
-	identificationType: z.string().optional(),
-	identificationNumber: z.string(),
-	identificationDocument: z.custom<File[]>().optional(),
-	treatmentConsent: z
-		.boolean()
-		.default(false)
-		.refine((value) => value === true, {
-			message: 'Debe dar su consentimiento al tratamiento para continuar',
-		}),
-	disclosureConsent: z
-		.boolean()
-		.default(false)
-		.refine((value) => value === true, {
-			message: 'Debe dar su consentimiento a la divulgación para continuar',
-		}),
 	privacyConsent: z
 		.boolean()
 		.default(false)
@@ -86,33 +83,27 @@ export const PatientFormValidation = z.object({
 });
 
 export const CreateAppointmentSchema = z.object({
-	primaryPhysician: z.string().min(2, 'Select at least one doctor'),
+	specialty: z.string().min(2, 'Seleccione una especialidad'),
 	schedule: z.coerce.date(),
-	reason: z
-		.string()
-		.min(2, 'Reason must be at least 2 characters')
-		.max(500, 'Reason must be at most 500 characters'),
-	note: z.string().optional(),
+	aditionalInfo: z.string().optional(),
 	cancellationReason: z.string().optional(),
 });
 
 export const ScheduleAppointmentSchema = z.object({
-	primaryPhysician: z.string().min(2, 'Select at least one doctor'),
+	specialty: z.string().min(2, 'Seleccione una especialidad'),
 	schedule: z.coerce.date(),
-	reason: z.string().optional(),
-	note: z.string().optional(),
+	aditionalInfo: z.string().optional(),
 	cancellationReason: z.string().optional(),
 });
 
 export const CancelAppointmentSchema = z.object({
-	primaryPhysician: z.string().min(2, 'Select at least one doctor'),
+	specialty: z.string().min(2, 'Seleccione una especialidad'),
 	schedule: z.coerce.date(),
-	reason: z.string().optional(),
-	note: z.string().optional(),
+	aditionalInfo: z.string().optional(),
 	cancellationReason: z
 		.string()
-		.min(2, 'Reason must be at least 2 characters')
-		.max(500, 'Reason must be at most 500 characters'),
+		.min(2, 'motivo de cancelación debe tener al menos 2 caracteres')
+		.max(500, 'motivo de cancelación debe tener menos de 500 caracteres'),
 });
 
 export function getAppointmentSchema(type: string) {

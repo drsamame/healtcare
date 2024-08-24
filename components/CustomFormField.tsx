@@ -6,7 +6,6 @@ import { registerLocale } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import {
 	FormControl,
-	FormDescription,
 	FormField,
 	FormItem,
 	FormLabel,
@@ -21,11 +20,12 @@ import {
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Control } from 'react-hook-form';
+import { Control, Form } from 'react-hook-form';
 import Image from 'next/image';
 import 'react-phone-number-input/style.css';
 import PhoneInput, { type Value } from 'react-phone-number-input';
 import { es } from 'date-fns/locale/es';
+import { PasswordInput } from '@/components/PasswordInput';
 registerLocale('es', es);
 
 export enum FormFieldType {
@@ -36,6 +36,7 @@ export enum FormFieldType {
 	DATEPICKER = 'datePicker',
 	SELECT = 'select',
 	SKELETON = 'skeleton',
+	PASSWORD = 'password',
 }
 
 interface Props {
@@ -157,7 +158,7 @@ const RenderField = ({ field, props }: { field: any; props: Props }) => {
 							checked={field.value}
 							onCheckedChange={field.onChange}
 						></Checkbox>
-						<label htmlFor={props.name} className='checkbox-label'>
+						<label htmlFor={props.name} className="checkbox-label">
 							{label}
 						</label>
 					</div>
@@ -165,6 +166,14 @@ const RenderField = ({ field, props }: { field: any; props: Props }) => {
 			);
 		case FormFieldType.SKELETON:
 			return renderSkeleton ? renderSkeleton(field) : null;
+		case FormFieldType.PASSWORD:
+			return (
+				<div className="rounded-md border border-dark-500 bg-dark-400">
+					<FormControl>
+						<PasswordInput placeholder={placeholder} value={field.value} onChange={field.onChange} />
+					</FormControl>
+				</div>
+			);
 		default:
 			break;
 	}

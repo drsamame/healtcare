@@ -14,73 +14,202 @@ export const genderOptions = [
 ];
 
 export const PatientFormDefaultValues = {
-	firstName: '',
-	lastName: '',
+	userId: '',
+	name: '',
 	email: '',
 	phone: '',
 	birthDate: new Date(Date.now()),
+	civilStatus: 'single' as CivilStatus,
 	gender: 'male' as Gender,
+	type: 'adult' as TypeForm,
+	religion: '',
+	placeOfBirth: '',
+	academicGrade: 'Secundaria',
+	identificationType: 'DNI',
+	identificationNumber: '',
 	address: '',
 	occupation: '',
 	emergencyContactName: '',
 	emergencyContactNumber: '',
-	primaryPhysician: '',
-	insuranceProvider: '',
-	insurancePolicyNumber: '',
-	allergies: '',
-	currentMedication: '',
-	familyMedicalHistory: '',
-	pastMedicalHistory: '',
-	identificationType: 'DNI',
-	identificationNumber: '',
-	identificationDocument: [],
-	treatmentConsent: false,
-	disclosureConsent: false,
 	privacyConsent: false,
 };
 
 export const IdentificationTypes = [
 	'DNI',
-	"Pasaporte",
+	'Pasaporte',
 	'Carnet de extranjería',
 ];
 
-export const Doctors = [
+export const CivilStatusOptions = [
 	{
-		image: '/assets/images/dr-green.png',
-		name: 'John Green',
+		value: 'single',
+		label: 'Soltero',
 	},
 	{
-		image: '/assets/images/dr-cameron.png',
-		name: 'Leila Cameron',
+		value: 'married',
+		label: 'Casado',
 	},
 	{
-		image: '/assets/images/dr-livingston.png',
-		name: 'David Livingston',
+		value: 'divorced',
+		label: 'Divorciado',
 	},
 	{
-		image: '/assets/images/dr-peter.png',
-		name: 'Evan Peter',
+		value: 'widowed',
+		label: 'Viudo',
+	},
+];
+
+export const typeForm = [
+	{
+		value: 'adult',
+		label: 'Adulto',
 	},
 	{
-		image: '/assets/images/dr-powell.png',
-		name: 'Jane Powell',
+		value: 'child',
+		label: 'Niño',
+	},
+];
+
+export const AcademicGrade = [
+	'Preescolar',
+	'Primaria',
+	'Secundaria',
+	'Técnica Superior',
+	'Universitaria',
+];
+
+export const Services = [
+	{
+		image: '/assets/images/service.png',
+		name: 'Cardiología',
+		price: 30,
+		discount: 0
 	},
 	{
-		image: '/assets/images/dr-remirez.png',
-		name: 'Alex Ramirez',
+		image: '/assets/images/service.png',
+		name: 'Cirugía General',
+		price: 30,
+		discount: 0
 	},
 	{
-		image: '/assets/images/dr-lee.png',
-		name: 'Jasmine Lee',
+		image: '/assets/images/service.png',
+		name: 'Cirugía Oncológica',
+		price: 35,
+		discount: 0
 	},
 	{
-		image: '/assets/images/dr-cruz.png',
-		name: 'Alyana Cruz',
+		image: '/assets/images/service.png',
+		name: 'Cirugía Pediátrica',
+		price: 35,
+		discount: 0
 	},
 	{
-		image: '/assets/images/dr-sharma.png',
-		name: 'Hardik Sharma',
+		image: '/assets/images/service.png',
+		name: 'Cirugía Plástica',
+		price: 30,
+		discount: 0
+	},
+	{
+		image: '/assets/images/service.png',
+		name: 'Dermatología',
+		price: 35,
+		discount: 0
+	},
+	{
+		image: '/assets/images/service.png',
+		name: 'Gastroenterología',
+		price: 30,
+		discount: 0
+	},
+	{
+		image: '/assets/images/service.png',
+		name: 'Ginecología',
+		price: 30,
+		discount: 0
+	},
+	{
+		image: '/assets/images/service.png',
+		name: 'Medicina General',
+		price: 35,
+		discount: 0
+	},
+	{
+		image: '/assets/images/service.png',
+		name: 'Medicina Interna',
+		price: 35,
+		discount: 0
+	},
+	{
+		image: '/assets/images/service.png',
+		name: 'Neurología',
+		price: 35,
+		discount: 0
+	},
+	{
+		image: '/assets/images/service.png',
+		name: 'Nutrición',
+		price: 30,
+		discount: 0
+	},
+	{
+		image: '/assets/images/service.png',
+		name: 'Odontología',
+		price: 17,
+		discount: 0
+	},
+	{
+		image: '/assets/images/service.png',
+		name: 'Oftalmología ',
+		price: 30,
+		discount: 0
+	},
+	{
+		image: '/assets/images/service.png',
+		name: 'Otorrinolaringología',
+		price: 35,
+		discount: 0
+	},
+	{
+		image: '/assets/images/service.png',
+		name: 'Pediatría',
+		price: 35,
+		discount: 0
+	},
+	{
+		image: '/assets/images/service.png',
+		name: 'Reumatología',
+		price: 30,
+		discount: 0
+	},
+	{
+		image: '/assets/images/service.png',
+		name: 'Terapia Física y Rehabilitación',
+		price: 17,
+		discount: 0
+	},
+	{
+		image: '/assets/images/service.png',
+		name: 'Traumatología',
+		price: 30,
+		discount: 0
+	},
+	{
+		image: '/assets/images/service.png',
+		name: 'Neumología',
+		price: 70,
+		discount: 50
+	},
+	{
+		image: '/assets/images/service.png',
+		name: 'Psicología',
+		price: 70,
+		discount: 50
+	},
+	{
+		image: '/assets/images/service.png',
+		name: 'Urología',
+		price: 70,
+		discount: 50
 	},
 ];
 

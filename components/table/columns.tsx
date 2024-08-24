@@ -1,7 +1,6 @@
 'use client';
 
 import { ColumnDef } from '@tanstack/react-table';
-import { Appointment } from '@/types/appwrite.types';
 import { Doctors } from '@/constants';
 import Image from 'next/image';
 

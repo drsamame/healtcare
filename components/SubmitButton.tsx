@@ -6,11 +6,13 @@ interface Props {
 	isLoading: boolean;
 	className?: string;
 	children: React.ReactNode;
+	asChild?: boolean;
 }
 
-function SubmitButton({ isLoading, className, children }: Props) {
+function SubmitButton({ isLoading, className, children, asChild = false }: Props) {
 	return (
 		<Button
+			asChild={asChild}
 			type="submit"
 			disabled={isLoading}
 			className={className ?? 'shad-primary-btn w-full'}
