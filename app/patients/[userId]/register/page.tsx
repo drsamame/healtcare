@@ -18,7 +18,7 @@ async function Register({ params: { userId } }: SearchParamProps) {
 					></Image>
 					<RegisterForm user={user.data as User} />
 					<p className="copyright py-12">
-						© 2024 CarePulse{' '}
+						© 2024 Solidaridad San Lorenzo®{' '}
 					</p>
 				</div>
 			</section>

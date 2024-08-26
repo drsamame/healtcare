@@ -13,7 +13,7 @@ const fontSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-	title: 'CarePulse',
+	title: 'Solidaridad San Lorenzo®',
 	description: 'Un sistema de cuidado de la salud en tiempo real',
 };
 

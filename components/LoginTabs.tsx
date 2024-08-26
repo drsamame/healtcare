@@ -10,7 +10,7 @@ function LoginTabs() {
 	return (
 		<>
 			<section className="mb-12 space-y-4">
-				<h1 className="header">Bienvenido 👋</h1>
+				<h1 className="header">¡Bienvenido! 👋</h1>
 				<p className="text-dark-700">Separa tu atención médica</p>
 			</section>
 			<Tabs
@@ -36,7 +36,7 @@ function LoginTabs() {
 						)}
 						value="register"
 					>
-						Registrarme
+						Registrarse
 					</TabsTrigger>
 				</TabsList>
 				<TabsContent value="login">

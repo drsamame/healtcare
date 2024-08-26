@@ -58,7 +58,7 @@ const PatientForm = () => {
 					fieldType={FormFieldType.INPUT}
 					control={form.control}
 					name="name"
-					label="Nombre completo"
+					label="Nombre Completo"
 					placeholder="Ej. Juan Pérez"
 					iconSrc="/assets/icons/user.svg"
 					iconAlt="user"

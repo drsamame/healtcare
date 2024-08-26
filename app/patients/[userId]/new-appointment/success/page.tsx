@@ -36,14 +36,13 @@ const RequestSuccess = async ({
 						alt="success"
 					/>
 					<h2 className="header mb-6 max-w-[600px] text-center">
-						Tu <span className="text-green-500">solicitud de cita</span> ha sido
-						enviada con éxito
+					¡Gracias por registrarte para <span className="text-green-500">separar tu atención médica!</span>
 					</h2>
-					<p>Nos pondremos en contacto pronto para confirmar la cita.</p>
+					<p className='text-center'>Te confirmaremos por WhatsApp la disponibilidad del especialista y la forma de pago. <br /> <span className='text-lg font-semibold'>La atención es por orden de llegada.</span></p>
 				</section>
 
 				<section className="request-details">
-					<p>Detalles de la solicitud: </p>
+					<p>Detalles de la Solicitud: </p>
 					<div className="flex items-center gap-3">
 						<Image
 							src={service?.image!}
@@ -66,10 +65,10 @@ const RequestSuccess = async ({
 				</section>
 
 				<Button variant="outline" className="shad-primary-btn" asChild>
-					{/* <Link href={`/patients/${userId}/new-appointment`}>Nueva cita</Link> */}
+					<Link href={`https://wa.link/r3o9k3`} target='_blank'>Continúa Por WhatsApp</Link>
 				</Button>
 
-				<p className="copyright">© 2024 CarePluse</p>
+				<p className="copyright">© 2024 Solidaridad San Lorenzo®.</p>
 			</div>
 		</div>
 	);
