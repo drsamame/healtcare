@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 32,
+            "activePatchIndex": 35,
             "patches": [
                 {
                     "date": 1723954740333,
@@ -136,6 +136,18 @@
                 {
                     "date": 1724372126660,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -196,21 +196,21 @@\n \t{\r\n \t\timage: '/assets/images/service.png',\r\n \t\tname: 'Neumología',\r\n \t\tprice: 70,\r\n-\t\tdiscount: '50%'\r\n+\t\tdiscount: 50\r\n \t},\r\n \t{\r\n \t\timage: '/assets/images/service.png',\r\n \t\tname: 'Psicología',\r\n \t\tprice: 70,\r\n-\t\tdiscount: '50%'\r\n+\t\tdiscount: 50\r\n \t},\r\n \t{\r\n \t\timage: '/assets/images/service.png',\r\n \t\tname: 'Urología',\r\n \t\tprice: 70,\r\n-\t\tdiscount: '50%'\r\n+\t\tdiscount: 50\r\n \t},\r\n ];\r\n \r\n export const StatusIcon = {\r\n"
+                },
+                {
+                    "date": 1724514334237,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -70,13 +70,14 @@\n \t},\r\n ];\r\n \r\n export const AcademicGrade = [\r\n-\t'Preescolar',\r\n+\t'Inicial',\r\n \t'Primaria',\r\n \t'Secundaria',\r\n \t'Técnica Superior',\r\n \t'Universitaria',\r\n+\t'Sin Estudios',\r\n ];\r\n \r\n export const Services = [\r\n \t{\r\n"
+                },
+                {
+                    "date": 1724514377756,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,12 +6,8 @@\n \t{\r\n \t\tvalue: 'female',\r\n \t\tlabel: 'Femenino',\r\n \t},\r\n-\t{\r\n-\t\tvalue: 'other',\r\n-\t\tlabel: 'Otro',\r\n-\t},\r\n ];\r\n \r\n export const PatientFormDefaultValues = {\r\n \tuserId: '',\r\n"
+                },
+                {
+                    "date": 1724514989858,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -32,9 +32,9 @@\n \r\n export const IdentificationTypes = [\r\n \t'DNI',\r\n \t'Pasaporte',\r\n-\t'Carnet de extranjería',\r\n+\t'Carnet de Extranjería',\r\n ];\r\n \r\n export const CivilStatusOptions = [\r\n \t{\r\n"
                 }
             ],
             "date": 1723954740333,

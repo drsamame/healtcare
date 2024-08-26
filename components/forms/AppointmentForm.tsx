@@ -113,7 +113,7 @@ const AppointmentForm = ({
 			buttonLabel = 'Cancelar cita';
 			break;
 		case 'create':
-			buttonLabel = 'Separa tu atención';
+			buttonLabel = 'Separa Tu Atención';
 			break;
 		case 'schedule':
 			buttonLabel = 'Agendar cita';
@@ -126,9 +126,9 @@ const AppointmentForm = ({
 				{type === 'create' && (
 					<>
 						<section className="mb-12 space-y-4">
-							<h1 className="header">Nueva cita!</h1>
+							<h1 className="header">Seleccione la Especialidad</h1>
 							<p className="text-dark-700">
-								Solicita una nueva cita en 10 segundos
+								en que desea separar su atención médica.
 							</p>
 						</section>
 					</>
@@ -176,7 +176,7 @@ const AppointmentForm = ({
 								control={form.control}
 								name="aditionalInfo"
 								label="Observación adicional"
-								placeholder='Ej. "Dolor de cabeza intenso"'
+								placeholder='Ejemplo: "Dolor de cabeza intenso"'
 							></CustomFormField>
 						</div>
 					</>

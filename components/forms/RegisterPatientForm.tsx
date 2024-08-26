@@ -76,19 +76,18 @@ const RegisterForm = ({ user }: { user: User }) => {
 				className="space-y-12 flex-1"
 			>
 				<section className="mb-12 space-y-4">
-					<h1 className="header">Bienvenido! ✋</h1>
-					<p className="text-dark-700">Déjanos conocer mas acerca de tí.</p>
+					<h1 className="header">Ingresa tus datos ✍️</h1>					<p className="text-dark-700">para poder separar tu atención médica.</p>
 				</section>
 				<section className="mb-12 space-y-6">
 					<div className="mb-9 space-y-1">
-						<h2 className="sub-header">Información personal</h2>
+						<h2 className="sub-header">Información Personal</h2>
 					</div>
 					<CustomFormField
 						fieldType={FormFieldType.INPUT}
 						control={form.control}
 						name="name"
-						label="Nombre completo"
-						placeholder="Ej. Juan Pérez"
+						label="Nombre Completo"
+						placeholder="Como figura en tu DNI"
 						iconSrc="/assets/icons/user.svg"
 						iconAlt="user"
 					/>
@@ -99,7 +98,7 @@ const RegisterForm = ({ user }: { user: User }) => {
 							control={form.control}
 							name="email"
 							label="Correo"
-							placeholder="drsamame@gmail.com"
+							placeholder="Ingresa tu e-mail"
 							iconSrc="/assets/icons/email.svg"
 							iconAlt="email"
 						/>
@@ -108,7 +107,6 @@ const RegisterForm = ({ user }: { user: User }) => {
 							control={form.control}
 							name="phone"
 							label="Celular"
-							placeholder="955061182"
 							iconSrc="/assets/icons/email.svg"
 							iconAlt="email"
 						/>
@@ -119,14 +117,14 @@ const RegisterForm = ({ user }: { user: User }) => {
 							fieldType={FormFieldType.DATEPICKER}
 							control={form.control}
 							name="birthDate"
-							label="Fecha de nacimiento"
+							label="Fecha de Nacimiento"
 						/>
 						<CustomFormField
 							fieldType={FormFieldType.INPUT}
 							control={form.control}
 							name="placeOfBirth"
-							label="Lugar de nacimiento"
-							placeholder="Magdalena del Mar"
+							label="Lugar de Nacimiento"
+							placeholder="Distrito o Provincia"
 						/>
 					</div>
 
@@ -135,7 +133,7 @@ const RegisterForm = ({ user }: { user: User }) => {
 							fieldType={FormFieldType.SELECT}
 							control={form.control}
 							name="academicGrade"
-							label="Nivel académico"
+							label="Nivel Académico"
 							placeholder="Seleccione una opción"
 						>
 							{AcademicGrade.map((el, i) => (
@@ -177,8 +175,8 @@ const RegisterForm = ({ user }: { user: User }) => {
 							fieldType={FormFieldType.INPUT}
 							control={form.control}
 							name="address"
-							label="Dirección"
-							placeholder="Av. Canada mz. 1 lt. 2"
+							label="Dirección Actual"
+							placeholder="Donde vives actualmente"
 						/>
 					</div>
 					<div className="flex flex-col gap-6 xl:flex-row">
@@ -186,15 +184,14 @@ const RegisterForm = ({ user }: { user: User }) => {
 							fieldType={FormFieldType.INPUT}
 							control={form.control}
 							name="emergencyContactName"
-							label="Nombre de contacto de emergencia"
-							placeholder="Ritha Irene Salazar Escajadillo"
+							label="Nombre de Un Contacto de Emergencia"
+							placeholder="Nombre del apoderado o de un familiar"
 						/>
 						<CustomFormField
 							fieldType={FormFieldType.PHONE}
 							control={form.control}
 							name="emergencyContactNumber"
-							label="Número de contacto de emergencia"
-							placeholder="955061182"
+							label="Número del Contacto de Emergencia"
 						/>
 					</div>
 				</section>
@@ -207,7 +204,7 @@ const RegisterForm = ({ user }: { user: User }) => {
 							fieldType={FormFieldType.SELECT}
 							control={form.control}
 							name="identificationType"
-							label="Tipo de identificación"
+							label="Tipo de Documento de Identificación"
 							placeholder="Seleccione un tipo de identificación"
 						>
 							{IdentificationTypes.map((identification, i) => (
@@ -220,7 +217,7 @@ const RegisterForm = ({ user }: { user: User }) => {
 							fieldType={FormFieldType.SKELETON}
 							control={form.control}
 							name="type"
-							label="Tipo de paciente"
+							label="Tipo de Paciente"
 							renderSkeleton={(field) => (
 								<FormControl>
 									<RadioGroup
@@ -249,15 +246,15 @@ const RegisterForm = ({ user }: { user: User }) => {
 							fieldType={FormFieldType.INPUT}
 							control={form.control}
 							name="identificationNumber"
-							label="Número de identificación"
-							placeholder="1234565789"
+							label="Número de Identificación"
+							placeholder="00000000"
 						/>
 						<CustomFormField
 							fieldType={FormFieldType.SELECT}
 							control={form.control}
 							name="civilStatus"
-							label="Estado civil"
-							placeholder="Seleccione un estado civil"
+							label="Estado Civil"
+							placeholder="Seleccione un estado Civil"
 						>
 							{CivilStatusOptions.map(({ label, value }, i) => (
 								<SelectItem key={value} value={value}>
@@ -274,7 +271,7 @@ const RegisterForm = ({ user }: { user: User }) => {
 								control={form.control}
 								name="occupation"
 								label="Ocupación"
-								placeholder="Software Developer"
+								placeholder="Cargo, Profesión u Oficio"
 							/>
 							<CustomFormField
 								fieldType={FormFieldType.INPUT}
@@ -295,11 +292,11 @@ const RegisterForm = ({ user }: { user: User }) => {
 						fieldType={FormFieldType.CHECKBOX}
 						control={form.control}
 						name="privacyConsent"
-						label="Yo conciento las políticas de privacidad de la clínica."
+						label="Yo conciento las políticas de privacidad de Solidaridad San Lorenzo®."
 					/>
 				</section>
 
-				<SubmitButton isLoading={isLoading}>Empezar</SubmitButton>
+				<SubmitButton isLoading={isLoading}>Registra Tus Datos</SubmitButton>
 				{form.formState.errors?.root?.serverError.type == 400 && (
 					<p className="text-sm font-medium text-destructive shad-error">
 						{form.formState.errors?.root?.serverError.message}

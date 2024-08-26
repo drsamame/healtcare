@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 7,
+            "activePatchIndex": 8,
             "patches": [
                 {
                     "date": 1724104375303,
@@ -36,6 +36,10 @@
                 {
                     "date": 1724476363739,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,33 @@\n+import AppointmentForm from '@/components/forms/AppointmentForm';\r\n+import Image from 'next/image';\r\n+import { getPatient } from '@/lib/actions/patient.actions';\r\n+\r\n+export default async function NewAppointment({\r\n+\tparams: { userId },\r\n+}: SearchParamProps) {\r\n+\tconst { data } = await getPatient(userId);\r\n+\treturn (\r\n+\t\t<div className=\"flex h-screen max-h-screen\">\r\n+\t\t\t<section className=\"remove-scrollbar container my-auto\">\r\n+\t\t\t\t<div className=\"sub-container max-w-[860px] flex-1 justify-between\">\r\n+\t\t\t\t\t<Image\r\n+\t\t\t\t\t\talt=\"patient\"\r\n+\t\t\t\t\t\tsrc=\"/assets/icons/logo-full2.svg\"\r\n+\t\t\t\t\t\theight={1000}\r\n+\t\t\t\t\t\twidth={1000}\r\n+\t\t\t\t\t\tclassName=\"mb-12 h-10 w-fit\"\r\n+\t\t\t\t\t></Image>\r\n+\t\t\t\t\t<AppointmentForm type=\"create\" userId={userId} patientId={data!.id} />\r\n+\t\t\t\t\t<p className=\"copyright mt-10 py-12\">© 2024 CarePulse </p>\r\n+\t\t\t\t</div>\r\n+\t\t\t</section>\r\n+\t\t\t<Image\r\n+\t\t\t\tsrc=\"/assets/images/appointment-img.png\"\r\n+\t\t\t\twidth={1000}\r\n+\t\t\t\theight={1000}\r\n+\t\t\t\talt=\"appointment\"\r\n+\t\t\t\tclassName=\"side-image max-w-[390px] bg-bottom\"\r\n+\t\t\t/>\r\n+\t\t</div>\r\n+\t);\r\n+}\r\n"
+                },
+                {
+                    "date": 1724513202599,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n \t\t\t\t\t\twidth={1000}\r\n \t\t\t\t\t\tclassName=\"mb-12 h-10 w-fit\"\r\n \t\t\t\t\t></Image>\r\n \t\t\t\t\t<AppointmentForm type=\"create\" userId={userId} patientId={data!.id} />\r\n-\t\t\t\t\t<p className=\"copyright mt-10 py-12\">© 2024 CarePulse </p>\r\n+\t\t\t\t\t<p className=\"copyright mt-10 py-12\">© 2024 Solidaridad San Lorenzo® </p>\r\n \t\t\t\t</div>\r\n \t\t\t</section>\r\n \t\t\t<Image\r\n \t\t\t\tsrc=\"/assets/images/appointment-img.png\"\r\n@@ -30,37 +30,4 @@\n \t\t\t/>\r\n \t\t</div>\r\n \t);\r\n }\r\n-import AppointmentForm from '@/components/forms/AppointmentForm';\r\n-import Image from 'next/image';\r\n-import { getPatient } from '@/lib/actions/patient.actions';\r\n-\r\n-export default async function NewAppointment({\r\n-\tparams: { userId },\r\n-}: SearchParamProps) {\r\n-\tconst { data } = await getPatient(userId);\r\n-\treturn (\r\n-\t\t<div className=\"flex h-screen max-h-screen\">\r\n-\t\t\t<section className=\"remove-scrollbar container my-auto\">\r\n-\t\t\t\t<div className=\"sub-container max-w-[860px] flex-1 justify-between\">\r\n-\t\t\t\t\t<Image\r\n-\t\t\t\t\t\talt=\"patient\"\r\n-\t\t\t\t\t\tsrc=\"/assets/icons/logo-full.svg\"\r\n-\t\t\t\t\t\theight={1000}\r\n-\t\t\t\t\t\twidth={1000}\r\n-\t\t\t\t\t\tclassName=\"mb-12 h-10 w-fit\"\r\n-\t\t\t\t\t></Image>\r\n-\t\t\t\t\t<AppointmentForm type=\"create\" userId={userId} patientId={data!.id} />\r\n-\t\t\t\t\t<p className=\"copyright mt-10 py-12\">© 2024 CarePulse </p>\r\n-\t\t\t\t</div>\r\n-\t\t\t</section>\r\n-\t\t\t<Image\r\n-\t\t\t\tsrc=\"/assets/images/appointment-img.png\"\r\n-\t\t\t\twidth={1000}\r\n-\t\t\t\theight={1000}\r\n-\t\t\t\talt=\"appointment\"\r\n-\t\t\t\tclassName=\"side-image max-w-[390px] bg-bottom\"\r\n-\t\t\t/>\r\n-\t\t</div>\r\n-\t);\r\n-}\r\n"
                 }
             ],
             "date": 1724104375303,

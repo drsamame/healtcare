@@ -18,7 +18,7 @@ export default async function NewAppointment({
 						className="mb-12 h-10 w-fit"
 					></Image>
 					<AppointmentForm type="create" userId={userId} patientId={data!.id} />
-					<p className="copyright mt-10 py-12">© 2024 CarePulse </p>
+					<p className="copyright mt-10 py-12">© 2024 Solidaridad San Lorenzo® </p>
 				</div>
 			</section>
 			<Image

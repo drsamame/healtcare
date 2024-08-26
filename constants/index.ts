@@ -7,10 +7,6 @@ export const genderOptions = [
 		value: 'female',
 		label: 'Femenino',
 	},
-	{
-		value: 'other',
-		label: 'Otro',
-	},
 ];
 
 export const PatientFormDefaultValues = {
@@ -37,7 +33,7 @@ export const PatientFormDefaultValues = {
 export const IdentificationTypes = [
 	'DNI',
 	'Pasaporte',
-	'Carnet de extranjería',
+	'Carnet de Extranjería',
 ];
 
 export const CivilStatusOptions = [
@@ -71,11 +67,12 @@ export const typeForm = [
 ];
 
 export const AcademicGrade = [
-	'Preescolar',
+	'Inicial',
 	'Primaria',
 	'Secundaria',
 	'Técnica Superior',
 	'Universitaria',
+	'Sin Estudios',
 ];
 
 export const Services = [

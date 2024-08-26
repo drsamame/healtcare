@@ -17,7 +17,7 @@ const DashboardPage = async () => {
 			<section className="admin-stat">
 				<Button variant="outline" className="shad-primary-btn" asChild>
 					<Link href={`/patients/${session?.user.id}/register`}>
-						Crear cita
+						Nueva Atención
 					</Link>
 				</Button>
 			</section>
