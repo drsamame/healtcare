@@ -6,48 +6,51 @@ import { Form } from '@/components/ui/form';
 import CustomFormField, { FormFieldType } from '../CustomFormField';
 import SubmitButton from '../SubmitButton';
 import { useState } from 'react';
-import { userFormValidation } from '@/lib/validation';
+import { getRegisterUser } from '@/lib/validation';
 import { useRouter } from 'next/navigation';
 import { createUser } from '@/lib/actions/auth.action';
-import { set } from 'date-fns';
 
-const PatientForm = () => {
+const PatientForm = ({ campaign = false }) => {
 	const router = useRouter();
 	const [isLoading, setIsLoading] = useState(false);
+	const userSchema = campaign
+		? getRegisterUser('campaign')
+		: getRegisterUser();
 
-	const form = useForm<z.infer<typeof userFormValidation>>({
-		resolver: zodResolver(userFormValidation),
+	const form = useForm<CreateUserParams>({
+		resolver: zodResolver(userSchema),
 		defaultValues: {
 			name: '',
 			email: '',
 			password: '',
 			repeatpassword: '',
+			phone: '',
 		},
 	});
 
-	async function onSubmit({
-		name,
-		email,
-		password,
-		repeatpassword,
-	}: z.infer<typeof userFormValidation>) {
+	async function onSubmit(values: CreateUserParams) {
 		setIsLoading(true);
 		try {
-			const userData = { name, email, password, repeatpassword };
+			const userData = values;
+			if (!values.email) {
+				userData.email = `${Math.random()
+					.toString(36)
+					.slice(2, 7)}@yopmail.com`;
+			}
 
-				const res = await createUser(userData);
-				if (res.error) {
-					form.setError('root.serverError', {
-						message:
-							'Correo ya registrado, por favor inicia sesión o intenta con otro correo',
-						type: '400',
-					});
-				} else {
-					router.push(`/patients/${res.createdId}/register`);
-				}
+			const res = await createUser(userData);
+			if (res.error) {
+				form.setError('root.serverError', {
+					message:
+						'Correo ya registrado, por favor inicia sesión o intenta con otro correo',
+					type: '400',
+				});
+			} else {
+				router.push(`/patients/${res.createdId}/register`);
+			}
 		} catch (e: any) {
 			console.log(e);
-		}finally{
+		} finally {
 			setIsLoading(false);
 		}
 	}
@@ -63,15 +66,27 @@ const PatientForm = () => {
 					iconSrc="/assets/icons/user.svg"
 					iconAlt="user"
 				/>
-				<CustomFormField
-					fieldType={FormFieldType.INPUT}
-					control={form.control}
-					name="email"
-					label="Correo"
-					placeholder="drsamame@gmail.com"
-					iconSrc="/assets/icons/email.svg"
-					iconAlt="email"
-				/>
+				{campaign ? (
+					<CustomFormField
+						fieldType={FormFieldType.PHONE}
+						control={form.control}
+						name="phone"
+						label="Celular"
+						iconSrc="/assets/icons/email.svg"
+						iconAlt="email"
+					/>
+				) : (
+					<CustomFormField
+						fieldType={FormFieldType.INPUT}
+						control={form.control}
+						name="email"
+						label="Correo"
+						placeholder="Ingresa tu correo electrónico"
+						iconSrc="/assets/icons/email.svg"
+						iconAlt="email"
+					/>
+				)}
+
 				<CustomFormField
 					fieldType={FormFieldType.PASSWORD}
 					control={form.control}

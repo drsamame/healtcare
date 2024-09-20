@@ -13,7 +13,9 @@ declare type CivilStatus = 'single' | 'married' | 'divorced' | 'widowed';
 declare interface CreateUserParams {
 	name: string;
 	email: string;
+	phone?: string;
 	password: string;
+	repeatpassword: string;
 }
 
 declare interface LoginUser {
@@ -33,7 +35,7 @@ declare interface User {
 declare type Patient = {
 	name: string;
 	id: string;
-}
+};
 
 declare type Appointment = {
 	id: string;
@@ -44,7 +46,8 @@ declare type Appointment = {
 	cancellationReason: string | null;
 	patient: Patient;
 	status: Status;
-}
+	voucherDocumentUrl: string | undefined;
+};
 
 declare type CreateAppointmentParams = {
 	userId: string;
@@ -52,6 +55,7 @@ declare type CreateAppointmentParams = {
 	specialty: string;
 	aditionalInfo: string;
 	schedule: Date;
+	voucherImage: FormData | null | undefined;
 	status: Status;
 };
 

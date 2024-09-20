@@ -51,7 +51,7 @@ const LoginForm = () => {
 					control={form.control}
 					name="email"
 					label="Correo"
-					placeholder="drsamame@gmail.com"
+				placeholder="Ingresa tu correo electrónico"
 					iconSrc="/assets/icons/email.svg"
 					iconAlt="email"
 				/>

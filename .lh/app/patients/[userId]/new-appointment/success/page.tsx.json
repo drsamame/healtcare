@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 56,
+            "activePatchIndex": 57,
             "patches": [
                 {
                     "date": 1724461489679,
@@ -232,6 +232,10 @@
                 {
                     "date": 1724516611932,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -37,9 +37,9 @@\n \t\t\t\t\t/>\r\n \t\t\t\t\t<h2 className=\"header mb-6 max-w-[600px] text-center\">\r\n \t\t\t\t\t¡Gracias por registrarte para <span className=\"text-green-500\">separar tu atención médica!</span>\r\n \t\t\t\t\t</h2>\r\n-\t\t\t\t\t<p className='text-center'>Te confirmaremos por WhatsApp la disponibilidad del especialista y la forma de pago. <br /> <span className='text-lg'>La atención es por orden de llegada.</span></p>\r\n+\t\t\t\t\t<p className='text-center'>Te confirmaremos por WhatsApp la disponibilidad del especialista y la forma de pago. <br /> <span className='text-lg font-semibold'>La atención es por orden de llegada.</span></p>\r\n \t\t\t\t</section>\r\n \r\n \t\t\t\t<section className=\"request-details\">\r\n \t\t\t\t\t<p>Detalles de la Solicitud: </p>\r\n"
+                },
+                {
+                    "date": 1724787264395,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,8 @@\n \r\n import { Button } from '@/components/ui/button';\r\n import { getAppointment } from '@/lib/actions/appointment.actions';\r\n import { formatDateTime } from '@/lib/utils';\r\n-import { useEffect } from 'react';\r\n import { Services } from '@/constants';\r\n \r\n const RequestSuccess = async ({\r\n \tparams: { userId: appointmentId },\r\n@@ -35,11 +34,18 @@\n \t\t\t\t\t\twidth={280}\r\n \t\t\t\t\t\talt=\"success\"\r\n \t\t\t\t\t/>\r\n \t\t\t\t\t<h2 className=\"header mb-6 max-w-[600px] text-center\">\r\n-\t\t\t\t\t¡Gracias por registrarte para <span className=\"text-green-500\">separar tu atención médica!</span>\r\n+\t\t\t\t\t\t¡Gracias por registrarte para{' '}\r\n+\t\t\t\t\t\t<span className=\"text-green-500\">separar tu atención médica!</span>\r\n \t\t\t\t\t</h2>\r\n-\t\t\t\t\t<p className='text-center'>Te confirmaremos por WhatsApp la disponibilidad del especialista y la forma de pago. <br /> <span className='text-lg font-semibold'>La atención es por orden de llegada.</span></p>\r\n+\t\t\t\t\t<p className=\"text-center\">\r\n+\t\t\t\t\t\tTe confirmaremos por WhatsApp la disponibilidad del especialista y\r\n+\t\t\t\t\t\tla forma de pago. <br />{' '}\r\n+\t\t\t\t\t\t<span className=\"text-lg font-semibold\">\r\n+\t\t\t\t\t\t\tLa atención es por orden de llegada.\r\n+\t\t\t\t\t\t</span>\r\n+\t\t\t\t\t</p>\r\n \t\t\t\t</section>\r\n \r\n \t\t\t\t<section className=\"request-details\">\r\n \t\t\t\t\t<p>Detalles de la Solicitud: </p>\r\n@@ -59,14 +65,21 @@\n \t\t\t\t\t\t\theight={24}\r\n \t\t\t\t\t\t\twidth={24}\r\n \t\t\t\t\t\t\talt=\"calendar\"\r\n \t\t\t\t\t\t/>\r\n-\t\t\t\t\t\t<p> {appointment?.schedule ? formatDateTime(appointment.schedule).dateOnly : ''}</p>\r\n+\t\t\t\t\t\t<p>\r\n+\t\t\t\t\t\t\t{' '}\r\n+\t\t\t\t\t\t\t{appointment?.schedule\r\n+\t\t\t\t\t\t\t\t? formatDateTime(appointment.schedule).dateOnly\r\n+\t\t\t\t\t\t\t\t: ''}\r\n+\t\t\t\t\t\t</p>\r\n \t\t\t\t\t</div>\r\n \t\t\t\t</section>\r\n \r\n \t\t\t\t<Button variant=\"outline\" className=\"shad-primary-btn\" asChild>\r\n-\t\t\t\t\t<Link href={`https://wa.link/r3o9k3`} target='_blank'>Continúa Por WhatsApp</Link>\r\n+\t\t\t\t\t<Link href={`https://wa.link/r3o9k3`} target=\"_blank\">\r\n+\t\t\t\t\t\tContinúa Por WhatsApp\r\n+\t\t\t\t\t</Link>\r\n \t\t\t\t</Button>\r\n \r\n \t\t\t\t<p className=\"copyright\">© 2024 Solidaridad San Lorenzo®.</p>\r\n \t\t\t</div>\r\n"
                 }
             ],
             "date": 1724461489679,

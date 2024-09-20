@@ -43,7 +43,7 @@ function LoginTabs() {
 					<LoginForm />
 				</TabsContent>
 				<TabsContent value="register">
-					<PatientForm />
+					<PatientForm  />
 				</TabsContent>
 			</Tabs>
 		</>

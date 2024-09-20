@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { getAppointment } from '@/lib/actions/appointment.actions';
 import { formatDateTime } from '@/lib/utils';
-import { useEffect } from 'react';
 import { Services } from '@/constants';
 
 const RequestSuccess = async ({
@@ -36,9 +35,16 @@ const RequestSuccess = async ({
 						alt="success"
 					/>
 					<h2 className="header mb-6 max-w-[600px] text-center">
-					¡Gracias por registrarte para <span className="text-green-500">separar tu atención médica!</span>
+						¡Gracias por registrarte para{' '}
+						<span className="text-green-500">separar tu atención médica!</span>
 					</h2>
-					<p className='text-center'>Te confirmaremos por WhatsApp la disponibilidad del especialista y la forma de pago. <br /> <span className='text-lg font-semibold'>La atención es por orden de llegada.</span></p>
+					<p className="text-center">
+						Te confirmaremos por WhatsApp la disponibilidad del especialista y
+						la forma de pago. <br />{' '}
+						<span className="text-lg font-semibold">
+							La atención es por orden de llegada.
+						</span>
+					</p>
 				</section>
 
 				<section className="request-details">
@@ -60,12 +66,19 @@ const RequestSuccess = async ({
 							width={24}
 							alt="calendar"
 						/>
-						<p> {appointment?.schedule ? formatDateTime(appointment.schedule).dateOnly : ''}</p>
+						<p>
+							{' '}
+							{appointment?.schedule
+								? formatDateTime(appointment.schedule).dateOnly
+								: ''}
+						</p>
 					</div>
 				</section>
 
 				<Button variant="outline" className="shad-primary-btn" asChild>
-					<Link href={`https://wa.link/r3o9k3`} target='_blank'>Continúa Por WhatsApp</Link>
+					<Link href={`https://wa.link/r3o9k3`} target="_blank">
+						Continúa Por WhatsApp
+					</Link>
 				</Button>
 
 				<p className="copyright">© 2024 Solidaridad San Lorenzo®.</p>

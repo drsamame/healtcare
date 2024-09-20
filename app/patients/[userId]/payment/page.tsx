@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
-import RegisterForm from '@/components/forms/RegisterPatientForm';
 import { getUser } from '@/lib/actions/auth.action';
+import RegisterPayment from '@/components/forms/registerPatientPayment';
 
 async function Register({ params: { userId } }: SearchParamProps) {
 	const user = await getUser(userId);
@@ -17,7 +17,7 @@ async function Register({ params: { userId } }: SearchParamProps) {
 						width={1000}
 						className="mb-12 h-10 w-fit"
 					></Image>
-					<RegisterForm user={user.data as User} />
+					<RegisterPayment user={user.data as User} />
 					<p className="copyright py-12">© 2024 Solidaridad San Lorenzo® </p>
 				</div>
 			</section>

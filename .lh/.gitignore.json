@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 2,
+            "activePatchIndex": 4,
             "patches": [
                 {
                     "date": 1723253637832,
@@ -15,6 +15,14 @@
                 },
                 {
                     "date": 1723256157290,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,40 @@\n+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.\r\n+\r\n+# dependencies\r\n+/node_modules\r\n+/.pnp\r\n+.pnp.js\r\n+.yarn/install-state.gz\r\n+\r\n+# testing\r\n+/coverage\r\n+\r\n+# next.js\r\n+/.next/\r\n+/out/\r\n+\r\n+# production\r\n+/build\r\n+\r\n+# misc\r\n+.DS_Store'\r\n+.lh\r\n+.history\r\n+*.pem\r\n+.vscode\r\n+\r\n+# debug\r\n+npm-debug.log*\r\n+yarn-debug.log*\r\n+yarn-error.log*\r\n+\r\n+# local env files\r\n+.env*.local\r\n+.env\r\n+\r\n+# vercel\r\n+.vercel\r\n+\r\n+# typescript\r\n+*.tsbuildinfo\r\n+next-env.d.ts\r\n"
+                },
+                {
+                    "date": 1726816593227,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,40 @@\n+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.\r\n+\r\n+# dependencies\r\n+/node_modules\r\n+/.pnp\r\n+.pnp.js\r\n+.yarn/install-state.gz\r\n+\r\n+# testing\r\n+/coverage\r\n+\r\n+# next.js\r\n+/.next/\r\n+/out/\r\n+\r\n+# production\r\n+/build\r\n+\r\n+# misc\r\n+.DS_Store'\r\n+./lh\r\n+.history\r\n+*.pem\r\n+.vscode\r\n+\r\n+# debug\r\n+npm-debug.log*\r\n+yarn-debug.log*\r\n+yarn-error.log*\r\n+\r\n+# local env files\r\n+.env*.local\r\n+.env\r\n+\r\n+# vercel\r\n+.vercel\r\n+\r\n+# typescript\r\n+*.tsbuildinfo\r\n+next-env.d.ts\r\n"
+                },
+                {
+                    "date": 1726816599009,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,40 @@\n+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.\r\n+\r\n+# dependencies\r\n+/node_modules\r\n+/.pnp\r\n+.pnp.js\r\n+.yarn/install-state.gz\r\n+\r\n+# testing\r\n+/coverage\r\n+\r\n+# next.js\r\n+/.next/\r\n+/out/\r\n+\r\n+# production\r\n+/build\r\n+\r\n+# misc\r\n+.DS_Store'\r\n+.lh\r\n+.history\r\n+*.pem\r\n+.vscode\r\n+\r\n+# debug\r\n+npm-debug.log*\r\n+yarn-debug.log*\r\n+yarn-error.log*\r\n+\r\n+# local env files\r\n+.env*.local\r\n+.env\r\n+\r\n+# vercel\r\n+.vercel\r\n+\r\n+# typescript\r\n+*.tsbuildinfo\r\n+next-env.d.ts\r\n"
                 }
             ],

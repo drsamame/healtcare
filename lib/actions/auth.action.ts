@@ -9,14 +9,13 @@ import bcrypt from 'bcryptjs';
 export const login = async (
 	values: z.infer<typeof userLoginFormValidation>
 ) => {
-	
 	try {
 		await signIn('credentials', {
 			email: values.email,
 			password: values.password,
 			redirect: false,
 		});
-		
+
 		return { success: true };
 	} catch (error) {
 		if (error instanceof AuthError) {
@@ -26,11 +25,10 @@ export const login = async (
 	}
 };
 
-export const createUser = async (
-	values: z.infer<typeof userFormValidation>
-) => {
+export const createUser = async (values: CreateUserParams) => {
 	try {
 		const { data, success } = userFormValidation.safeParse(values);
+		console.log(data)
 		if (!success) {
 			return {
 				error: 'Invalid data',
@@ -72,6 +70,7 @@ export const createUser = async (
 				email: data.email,
 				name: data.name,
 				password: passwordHash,
+				cellphone: data.phone || '',
 			},
 		});
 		await signIn('credentials', {

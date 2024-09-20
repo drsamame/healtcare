@@ -27,7 +27,7 @@ model User {
   id            String    @id @default(cuid())
   name          String?
   email         String    @unique
-  cellphone     String?
+  cellphone     String?   @unique
   password      String?
   emailVerified DateTime?
   image         String?
@@ -70,9 +70,9 @@ model Appointment {
   status             Status
   cancellationReason String?
   patientId          String
-
+  updatedAt DateTime? @updatedAt
+  voucherDocumentUrl  String?
   patient Patients @relation(fields: [patientId], references: [id], onDelete: Cascade)
-
 }
 
 model Patients {

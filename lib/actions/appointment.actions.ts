@@ -3,38 +3,68 @@
 import { revalidatePath } from 'next/cache';
 import { CreateAppointmentSchema } from '../validation';
 import { db } from '../db';
-import { AuthError } from 'next-auth';
+import { auth } from '@/auth';
+import { put } from '@vercel/blob';
 
 export const createAppointment = async (
-	appointmentData: CreateAppointmentParams
+	appointment: CreateAppointmentParams
 ) => {
 	try {
-		const { data, success } =
-			CreateAppointmentSchema.safeParse(appointmentData);
-
+		const { data, success } = CreateAppointmentSchema.omit({
+			voucherImage: true,
+		}).safeParse(appointment);
+		let url = null;
 		if (!success) {
 			return {
 				error: 'Invalid data',
 			};
 		}
+
+		if (appointment.voucherImage) {
+			const { blobFile, fileName } = Object.fromEntries(
+				appointment.voucherImage
+			);
+			const voucherImage = {
+				voucherImage: [blobFile],
+			};
+			const { success } = CreateAppointmentSchema.pick({
+				voucherImage: true,
+			}).safeParse(voucherImage);
+			if (!success) {
+				return {
+					error: 'Invalid data',
+				};
+			}
+			const { url: vercelStorageUrl } = await put(
+				`vouchers/${fileName}`,
+				blobFile,
+				{
+					access: 'public',
+				}
+			);
+			url = vercelStorageUrl;
+		}
+		console.log(appointment);
 		const { id } = await db.appointment.create({
 			data: {
 				...data,
-				userId: appointmentData.userId,
-				patientId: appointmentData.patient,
-				status: appointmentData.status,
+				userId: appointment.userId,
+				patientId: appointment.patient,
+				status: appointment.status,
+				voucherDocumentUrl: url,
 			},
 		});
 		return { success: true, createdId: id };
 	} catch (error) {
-		if (error instanceof AuthError) {
-			return { error: error.cause?.err?.message };
-		}
+		console.log(error);
 		return { error: 'error 500' };
 	}
 };
 
 export const getAppointment = async (id: string) => {
+	const session = await auth();
+	if (!session!.user) return { error: 'error 401' };
+
 	try {
 		const patient = await db.appointment.findFirst({
 			where: {
@@ -59,6 +89,11 @@ export const getAppointment = async (id: string) => {
 };
 
 export const getRecentAppointmentList = async () => {
+	const session = await auth();
+	const userRole = session?.user?.role;
+	if (userRole !== 'admin') {
+		return { error: 'error 401' };
+	}
 	try {
 		const appointments = await db.appointment.findMany({
 			orderBy: [
@@ -97,9 +132,6 @@ export const getRecentAppointmentList = async () => {
 		return { success: true, data };
 	} catch (error) {
 		console.log(error);
-		if (error instanceof AuthError) {
-			return { error: error.cause?.err?.message };
-		}
 		return { error: 'error 500' };
 	}
 };
@@ -108,27 +140,21 @@ export const updateAppointment = async ({
 	appointmentId,
 	appointment,
 }: UpdateAppointmentParams) => {
-	console.log('se loqueo la tabla');
+	const session = await auth();
+	const userRole = session?.user?.role;
+	if (userRole !== 'admin') {
+		return {
+			error: 'Unauthorize',
+		};
+	}
 	try {
 		const updatedAppointment = await db.appointment.update({
 			where: { id: appointmentId },
 			data: appointment,
 		});
-		console.log(updatedAppointment);
 
 		if (!updatedAppointment) throw new Error('Appointment not found');
 
-		// const smsMessage = `Greetings from CarePulse. ${
-		// 	type === 'schedule'
-		// 		? `Your appointment is confirmed for ${
-		// 				formatDateTime(appointment.schedule!, timeZone).dateTime
-		// 		  } with Dr. ${appointment.primaryPhysician}`
-		// 		: `We regret to inform that your appointment for ${
-		// 				formatDateTime(appointment.schedule!, timeZone).dateTime
-		// 		  } is cancelled. Reason:  ${appointment.cancellationReason}`
-		// }.`;
-		//await sendSMSNotification(userId, smsMessage);
-		// console.log(updatedAppointment)
 		revalidatePath('/admin');
 		return updatedAppointment;
 	} catch (error) {

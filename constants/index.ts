@@ -210,6 +210,10 @@ export const Services = [
 	},
 ];
 
+export const ReportTypeNames = {
+	APPOIMENTSREPORT: 'Reporte de citas'
+}
+
 export const StatusIcon = {
 	scheduled: '/assets/icons/check.svg',
 	pending: '/assets/icons/pending.svg',
