@@ -2,7 +2,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { Form } from '@/components/ui/form';
+import { Form, FormControl } from '@/components/ui/form';
 import CustomFormField, { FormFieldType } from '../CustomFormField';
 import SubmitButton from '../SubmitButton';
 import { Dispatch, SetStateAction, useState } from 'react';
@@ -15,7 +15,8 @@ import { useRouter } from 'next/navigation';
 import { SelectItem } from '@/components/ui/select';
 import { Services } from '@/constants';
 import Image from 'next/image';
-
+import { FileUploader } from '../FileUploader';
+import { ACCEPTED_IMAGE_TYPES } from '@/lib/validation';
 interface Props {
 	userId: string;
 	patientId: string;
@@ -62,6 +63,19 @@ const AppointmentForm = ({
 				status = 'pending';
 				break;
 		}
+		console.log(values);
+
+		// Store file info in form data as
+		let formData;
+		if (values.voucherImage && values.voucherImage?.length > 0) {
+			const blobFile = new Blob([values.voucherImage[0]], {
+				type: values.voucherImage[0].type,
+			});
+
+			formData = new FormData();
+			formData.append('blobFile', blobFile);
+			formData.append('fileName', values.voucherImage[0].name);
+		}
 
 		try {
 			if (type === 'create' && patientId) {
@@ -72,12 +86,14 @@ const AppointmentForm = ({
 					aditionalInfo: values.aditionalInfo!,
 					status: status as Status,
 					specialty: values.specialty,
+					voucherImage: values.voucherImage[0] ? formData : undefined,
 				};
 				const appointment = await createAppointment(appointmentData);
 				if (appointment) {
 					form.reset();
-					console.log(appointment);
-					router.push(`/patients/${appointment?.createdId}/new-appointment/success`);
+					router.push(
+						`/patients/${appointment?.createdId}/new-appointment/success`
+					);
 				}
 			} else {
 				const appointmentToUpdate = {
@@ -119,6 +135,10 @@ const AppointmentForm = ({
 			buttonLabel = 'Agendar cita';
 			break;
 	}
+
+	const selectedSpecialtyPrice = Services.find(
+		(el) => el.name === form.watch('specialty')
+	)?.price;
 
 	return (
 		<Form {...form}>
@@ -176,9 +196,52 @@ const AppointmentForm = ({
 								control={form.control}
 								name="aditionalInfo"
 								label="Observación adicional"
-								placeholder='Ejemplo: "Dolor de cabeza intenso"'
+								placeholder='Ejemplo: "Deseo atención en el turno mañana. Deseo ser atendido por el doctor Sánchez Valera"'
 							></CustomFormField>
 						</div>
+						<div className="flex flex-col gap-6 xl:flex-row">
+							<a
+								className="text-sm font-medium leading-none underline"
+								href={appointment?.voucherDocumentUrl}
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								Ver comprobante de pago
+							</a>
+						</div>
+					</>
+				)}
+
+				{type === 'create' && (
+					<>
+						<p className="text-sm font-semibold leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+							YAPEA o PLINEA S/.{selectedSpecialtyPrice} escaneando el siguiente
+							código QR:
+						</p>
+						<div>
+							<Image
+								src="/assets/images/qryape.jpeg"
+								width={180}
+								height={180}
+								alt="patient"
+								className="side-image max-w-[390px]"
+							/>
+						</div>
+						<CustomFormField
+							fieldType={FormFieldType.SKELETON}
+							control={form.control}
+							name="voucherImage"
+							label="Adjunta una foto o captura de pantalla del YAPE o PLIN realizado:"
+							renderSkeleton={(field) => (
+								<FormControl>
+									<FileUploader
+										formats={ACCEPTED_IMAGE_TYPES}
+										files={field.value}
+										onChange={field.onChange}
+									/>
+								</FormControl>
+							)}
+						/>
 					</>
 				)}
 

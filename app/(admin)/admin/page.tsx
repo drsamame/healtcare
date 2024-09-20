@@ -2,9 +2,10 @@ import { StatCard } from '@/components/StatCard';
 import { getRecentAppointmentList } from '@/lib/actions/appointment.actions';
 import { columnsAppoiment } from '@/components/table/columnsAppoiment';
 import { DataTable } from '@/components/table/Datatable';
+import DownloadReportButton from '@/components/DownloadReportButton';
+import type { IReportData } from '@/components/DownloadReportButton';
 const AdminPage = async () => {
 	const { data } = await getRecentAppointmentList();
-	console.log(data)
 	return (
 		<>
 			<section className="w-full space-y-4">
@@ -12,6 +13,7 @@ const AdminPage = async () => {
 					Empieza el día administrando las nuevas citas
 				</p>
 			</section>
+			<DownloadReportButton dataTable={data?.appointments as IReportData[]} />
 			{data && (
 				<>
 					<section className="admin-stat">

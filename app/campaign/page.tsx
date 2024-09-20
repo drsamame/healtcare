@@ -1,7 +1,6 @@
 import Image from 'next/image';
-// import LoginTabs from '@/components/LoginTabs';
-import LoginForm from '@/components/forms/LoginForm';
-export default function Home() {
+import PatientForm from '@/components/forms/RegisterForm';
+export default function Campaign() {
 	return (
 		<div className="flex h-screen max-h-screen">
 			<section className="remove-scrollbar container my-auto">
@@ -17,8 +16,7 @@ export default function Home() {
 						<h1 className="header">¡Bienvenido! 👋</h1>
 						<p className="text-dark-700">Separa tu atención médica</p>
 					</section>
-					{/* <LoginTabs /> */}
-					<LoginForm />
+					<PatientForm campaign={true} />
 					<div className="text-14-regular mt-20 flex justify-between">
 						<p className="justify-items-end text-dark-600 xl:text-left">
 							© 2024 Solidaridad San Lorenzo®

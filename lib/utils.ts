@@ -74,16 +74,11 @@ export const formatDateTime = (
 	};
 };
 
-export const getErrorMessage = (error: unknown): string => {
-	let message: string;
-	if (error instanceof Error) {
-		message = error.message;
-	} else if (error && typeof error === 'object' && 'message' in error) {
-		message = String(error.message);
-	} else if (typeof error === 'string') {
-		message = error;
-	} else {
-		message = 'Unknow error';
-	}
-	return message;
-};
+export async function downloadFile(filename: string, blob: Blob) {
+	const url = URL.createObjectURL(blob);
+	const link = document.createElement('a');
+	link.href = url;
+	link.setAttribute('download', filename);
+	document.body.appendChild(link);
+	link.click();
+}

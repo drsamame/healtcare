@@ -2,33 +2,47 @@
 import React, { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import Image from 'next/image';
-import { convertFileToUrl } from '@/lib/utils';
 
 interface Props {
 	files: File[] | undefined;
 	onChange: (files: File[]) => void;
+	formats?: string[] | undefined;
 }
 
-export const FileUploader = ({ files, onChange }: Props) => {
+export const FileUploader = ({ files, onChange, formats }: Props) => {
 	const onDrop = useCallback(
 		(acceptedFiles: File[]) => {
 			onChange(acceptedFiles);
 		},
 		[onChange]
 	);
-	const { getRootProps, getInputProps } = useDropzone({ onDrop });
+	const acceptedFormats = formats?.reduce<Record<string, []>>(
+		(result, item) => {
+			result[item] = [];
+			return result;
+		},
+		{}
+	);
+	const { getRootProps, getInputProps } = useDropzone({
+		onDrop,
+		accept: acceptedFormats,
+	});
 
 	return (
 		<div {...getRootProps()} className="file-upload">
 			<input {...getInputProps()} />
 			{files && files?.length > 0 ? (
-				<Image
-					src={convertFileToUrl(files[0])}
-					width={1000}
-					height={1000}
-					alt="upload image"
-					className="max-h-[400px] overflow-hidden object-cover"
-				/>
+				<>
+					<Image
+						src="/assets/icons/upload.svg"
+						alt="upload"
+						width={40}
+						height={40}
+					/>
+					<div className="file-upload_label">
+						<p className="text-14-regular">{files[0].name}</p>
+					</div>
+				</>
 			) : (
 				<>
 					<Image
