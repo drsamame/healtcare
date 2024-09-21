@@ -22,7 +22,7 @@ import { SelectItem } from '@/components/ui/select';
 import { PatientFormValidation } from '@/lib/validation';
 
 const RegisterForm = ({ user }: { user: User }) => {
-	console.log(user)
+	console.log(user);
 	const router = useRouter();
 	const [isLoading, setIsLoading] = useState(false);
 	const form = useForm<z.infer<typeof PatientFormValidation>>({
@@ -78,7 +78,10 @@ const RegisterForm = ({ user }: { user: User }) => {
 				className="space-y-12 flex-1"
 			>
 				<section className="mb-12 space-y-4">
-					<h1 className="header">Ingresa tus datos ✍️</h1>					<p className="text-dark-700">para poder separar tu atención médica.</p>
+					<h1 className="header">Ingresa tus datos ✍️</h1>{' '}
+					<p className="text-dark-700">
+						para poder separar tu atención médica.
+					</p>
 				</section>
 				<section className="mb-12 space-y-6">
 					<div className="mb-9 space-y-1">
@@ -294,7 +297,7 @@ const RegisterForm = ({ user }: { user: User }) => {
 						fieldType={FormFieldType.CHECKBOX}
 						control={form.control}
 						name="privacyConsent"
-						label="Yo conciento las políticas de privacidad de Solidaridad San Lorenzo®."
+						label="Yo consiento las políticas de privacidad de Solidaridad San Lorenzo®."
 					/>
 				</section>
 

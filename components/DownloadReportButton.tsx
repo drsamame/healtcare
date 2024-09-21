@@ -27,7 +27,7 @@ function DownloadReportButton({
 				reportName: ReportTypeNames.APPOIMENTSREPORT,
 				generateDate: new Date(),
 			});
-
+			console.log(dataTable)
 			exportParams.data = dataTable;
 			exportParams.rows = 4;
 			let file = await InitExport('XLSX', exportParams);

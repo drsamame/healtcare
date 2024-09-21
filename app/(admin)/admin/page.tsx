@@ -10,7 +10,7 @@ const AdminPage = async () => {
 		<>
 			<section className="w-full space-y-4">
 				<p className="text-dark-700">
-					Empieza el día administrando las nuevas citas
+					Empieza el día administrando las atenciones médicas
 				</p>
 			</section>
 			<DownloadReportButton dataTable={data?.appointments as IReportData[]} />

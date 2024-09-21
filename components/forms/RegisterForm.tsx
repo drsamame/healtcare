@@ -42,7 +42,7 @@ const PatientForm = ({ campaign = false }) => {
 			if (res.error) {
 				form.setError('root.serverError', {
 					message:
-						'Correo ya registrado, por favor inicia sesión o intenta con otro correo',
+						'Celular ya registrado, por favor inicia sesión o intenta con otro celular',
 					type: '400',
 				});
 			} else {

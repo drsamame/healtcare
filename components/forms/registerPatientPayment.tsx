@@ -180,7 +180,7 @@ const RegisterPayment = ({ user }: { user: User }) => {
 						fieldType={FormFieldType.CHECKBOX}
 						control={form.control}
 						name="privacyConsent"
-						label="Yo conciento las políticas de privacidad de Solidaridad San Lorenzo®."
+						label="Yo consiento las políticas de privacidad de Solidaridad San Lorenzo®."
 					/>
 				</section>
 
