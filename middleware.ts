@@ -4,7 +4,7 @@ import authConfig from './auth.config';
 
 const { auth } = NextAuth(authConfig);
 
-const publicRoutes = ['/campaign'];
+const publicRoutes = ['/registrateypaga'];
 const authRoutes = ['/'];
 const adminRoutes = ['/admin'];
 const apiAuthPrefix = '/api/auth';
