@@ -35,8 +35,8 @@ const RequestSuccess = async ({
 						alt="success"
 					/>
 					<h2 className="header mb-6 max-w-[600px] text-center">
-						¡Gracias por registrarte para{' '}
-						<span className="text-green-500">separar tu atención médica!</span>
+						¡Gracias por registrarte {' '}
+						<span className="text-green-500">para separar tu atención médica!</span>
 					</h2>
 					<p className="text-center">
 						Te confirmaremos por WhatsApp la disponibilidad del especialista y

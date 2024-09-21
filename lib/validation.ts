@@ -131,7 +131,7 @@ export const CreateAppointmentSchema = z.object({
 	cancellationReason: z.string().optional(),
 	voucherImage: z
 		.any()
-		.refine((files) => files?.length == 1, 'Adjuntar la imagen de su deposito.')
+		.refine((files) => files?.length == 1, 'Adjuntar el comprobante del pago realizado.')
 		.refine((files) => {
 			return files?.[0]?.size <= MAX_FILE_SIZE;
 		}, 'Adjuntar la imagen de su deposito.')
