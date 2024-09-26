@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import RegisterForm from '@/components/forms/RegisterPatientForm';
 import { getUser } from '@/lib/actions/auth.action';
-import { getPatient } from '@/lib/actions/patient.actions';
+import { getPatientbyId } from '@/lib/actions/patient.actions';
 import { auth } from '@/auth';
 
 async function Register({ params: { userId } }: SearchParamProps) {
@@ -13,7 +13,7 @@ async function Register({ params: { userId } }: SearchParamProps) {
 	if (session) {
 		const userRole = session?.user?.role;
 		if (userRole == 'admin') {
-			const { data } = await getPatient(userId);
+			const { data } = await getPatientbyId(userId);
 			patient = data ?? null;
 		}
 	}

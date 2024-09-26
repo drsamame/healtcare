@@ -1,11 +1,11 @@
 import AppointmentForm from '@/components/forms/AppointmentForm';
 import Image from 'next/image';
-import { getPatient } from '@/lib/actions/patient.actions';
+import { getPatientbyUserId } from '@/lib/actions/patient.actions';
 
 export default async function NewAppointment({
 	params: { userId },
 }: SearchParamProps) {
-	const { data } = await getPatient(userId);
+	const { data } = await getPatientbyUserId(userId);
 	return (
 		<div className="flex h-screen max-h-screen">
 			<section className="remove-scrollbar container my-auto">

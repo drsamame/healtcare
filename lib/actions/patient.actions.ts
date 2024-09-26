@@ -3,11 +3,30 @@ import { z } from 'zod';
 import { PatientFormValidation } from '../validation';
 import { db } from '../db';
 
-export const getPatient = async (id: string) => {
+export const getPatientbyUserId = async (id: string) => {
 	try {
 		const patient = await db.patients.findFirst({
 			where: {
 				userId: id,
+			}
+		});
+		if (!patient) return { error: 'Patient not found' };
+		return {
+			success: true,
+			data: {
+				...patient,
+			},
+		};
+	} catch (error: any) {
+		return { error: 'error 500' };
+	}
+};
+
+export const getPatientbyId = async (id: string) => {
+	try {
+		const patient = await db.patients.findFirst({
+			where: {
+				id: id,
 			}
 		});
 		if (!patient) return { error: 'Patient not found' };
