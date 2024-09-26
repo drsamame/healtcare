@@ -8,10 +8,7 @@ export const getPatient = async (id: string) => {
 		const patient = await db.patients.findFirst({
 			where: {
 				userId: id,
-			},
-			select: {
-				id: true,
-			},
+			}
 		});
 		if (!patient) return { error: 'Patient not found' };
 		return {

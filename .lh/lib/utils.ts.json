@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 3,
+            "activePatchIndex": 9,
             "patches": [
                 {
                     "date": 1723256709995,
@@ -20,6 +20,30 @@
                 {
                     "date": 1724965961717,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -73,106 +73,12 @@\n \t\ttimeOnly: formattedTime,\r\n \t};\r\n };\r\n \r\n-export const getErrorMessage = (error: unknown): string => {\r\n-\tlet message: string;\r\n-\tif (error instanceof Error) {\r\n-\t\tmessage = error.message;\r\n-\t} else if (error && typeof error === 'object' && 'message' in error) {\r\n-\t\tmessage = String(error.message);\r\n-\t} else if (typeof error === 'string') {\r\n-\t\tmessage = error;\r\n-\t} else {\r\n-\t\tmessage = 'Unknow error';\r\n-\t}\r\n-\treturn message;\r\n-};\r\n-import { type ClassValue, clsx } from 'clsx';\r\n-import { twMerge } from 'tailwind-merge';\r\n-\r\n-export function cn(...inputs: ClassValue[]) {\r\n-\treturn twMerge(clsx(inputs));\r\n+export async function downloadFile(filename: string, blob: Blob) {\r\n+\tconst url = URL.createObjectURL(blob);\r\n+\tconst link = document.createElement('a');\r\n+\tlink.href = url;\r\n+\tlink.setAttribute('download', filename);\r\n+\tdocument.body.appendChild(link);\r\n+\tlink.click();\r\n }\r\n-\r\n-export const parseStringify = (value: any) => JSON.parse(JSON.stringify(value));\r\n-\r\n-export const convertFileToUrl = (file: File) => URL.createObjectURL(file);\r\n-\r\n-export const formatDateTime = (\r\n-\tdateString: Date | string,\r\n-\ttimeZone: string = Intl.DateTimeFormat().resolvedOptions().timeZone\r\n-) => {\r\n-\tconst dateTimeOptions: Intl.DateTimeFormatOptions = {\r\n-\t\t// weekday: \"short\", // abbreviated weekday name (e.g., 'Mon')\r\n-\t\tmonth: 'short', // abbreviated month name (e.g., 'Oct')\r\n-\t\tday: 'numeric', // numeric day of the month (e.g., '25')\r\n-\t\tyear: 'numeric', // numeric year (e.g., '2023')\r\n-\t\thour: 'numeric', // numeric hour (e.g., '8')\r\n-\t\tminute: 'numeric', // numeric minute (e.g., '30')\r\n-\t\thour12: true, // use 12-hour clock (true) or 24-hour clock (false),\r\n-\t\ttimeZone: timeZone, // use the provided timezone\r\n-\t};\r\n-\r\n-\tconst dateDayOptions: Intl.DateTimeFormatOptions = {\r\n-\t\tweekday: 'short', // abbreviated weekday name (e.g., 'Mon')\r\n-\t\tyear: 'numeric', // numeric year (e.g., '2023')\r\n-\t\tmonth: '2-digit', // abbreviated month name (e.g., 'Oct')\r\n-\t\tday: '2-digit', // numeric day of the month (e.g., '25')\r\n-\t\ttimeZone: timeZone, // use the provided timezone\r\n-\t};\r\n-\r\n-\tconst dateOptions: Intl.DateTimeFormatOptions = {\r\n-\t\tmonth: 'short', // abbreviated month name (e.g., 'Oct')\r\n-\t\tyear: 'numeric', // numeric year (e.g., '2023')\r\n-\t\tday: 'numeric', // numeric day of the month (e.g., '25')\r\n-\t\ttimeZone: timeZone, // use the provided timezone\r\n-\t};\r\n-\r\n-\tconst timeOptions: Intl.DateTimeFormatOptions = {\r\n-\t\thour: 'numeric', // numeric hour (e.g., '8')\r\n-\t\tminute: 'numeric', // numeric minute (e.g., '30')\r\n-\t\thour12: true, // use 12-hour clock (true) or 24-hour clock (false)\r\n-\t\ttimeZone: timeZone, // use the provided timezone\r\n-\t};\r\n-\r\n-\tconst formattedDateTime: string = new Date(dateString).toLocaleString(\r\n-\t\t'es-ES',\r\n-\t\tdateTimeOptions\r\n-\t);\r\n-\r\n-\tconst formattedDateDay: string = new Date(dateString).toLocaleString(\r\n-\t\t'es-ES',\r\n-\t\tdateDayOptions\r\n-\t);\r\n-\r\n-\tconst formattedDate: string = new Date(dateString).toLocaleString(\r\n-\t\t'es-ES',\r\n-\t\tdateOptions\r\n-\t);\r\n-\r\n-\tconst formattedTime: string = new Date(dateString).toLocaleString(\r\n-\t\t'es-ES',\r\n-\t\ttimeOptions\r\n-\t);\r\n-\r\n-\treturn {\r\n-\t\tdateTime: formattedDateTime,\r\n-\t\tdateDay: formattedDateDay,\r\n-\t\tdateOnly: formattedDate,\r\n-\t\ttimeOnly: formattedTime,\r\n-\t};\r\n-};\r\n-\r\n-export const getErrorMessage = (error: unknown): string => {\r\n-\tlet message: string;\r\n-\tif (error instanceof Error) {\r\n-\t\tmessage = error.message;\r\n-\t} else if (error && typeof error === 'object' && 'message' in error) {\r\n-\t\tmessage = String(error.message);\r\n-\t} else if (typeof error === 'string') {\r\n-\t\tmessage = error;\r\n-\t} else {\r\n-\t\tmessage = 'Unknow error';\r\n-\t}\r\n-\treturn message;\r\n-};\r\n"
+                },
+                {
+                    "date": 1727119525019,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,7 @@\n import { type ClassValue, clsx } from 'clsx';\r\n import { twMerge } from 'tailwind-merge';\r\n+import { Services } from '@/constants';\r\n \r\n export function cn(...inputs: ClassValue[]) {\r\n \treturn twMerge(clsx(inputs));\r\n }\r\n@@ -81,4 +82,8 @@\n \tlink.setAttribute('download', filename);\r\n \tdocument.body.appendChild(link);\r\n \tlink.click();\r\n }\r\n+\r\n+export function getServicesPrices(name: string){\r\n+\tServices.find((service) => service.name === name);\r\n+}\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1727119927117,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -84,6 +84,6 @@\n \tlink.click();\r\n }\r\n \r\n export function getServicesPrices(name: string){\r\n-\tServices.find((service) => service.name === name);\r\n+\treturn Services.find((service) => service.name === name);\r\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1727121283651,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -83,7 +83,7 @@\n \tdocument.body.appendChild(link);\r\n \tlink.click();\r\n }\r\n \r\n-export function getServicesPrices(name: string){\r\n+export function getServicesPrices(name: string) : any {\r\n \treturn Services.find((service) => service.name === name);\r\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1727121294104,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -83,7 +83,7 @@\n \tdocument.body.appendChild(link);\r\n \tlink.click();\r\n }\r\n \r\n-export function getServicesPrices(name: string) : any {\r\n+export function getServicesPrices(name: string) : object {\r\n \treturn Services.find((service) => service.name === name);\r\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1727121316804,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -83,7 +83,7 @@\n \tdocument.body.appendChild(link);\r\n \tlink.click();\r\n }\r\n \r\n-export function getServicesPrices(name: string) : object {\r\n+export function getServicesPrices(name: string) : { name: string, price: number, image: string, discount: number } {\r\n \treturn Services.find((service) => service.name === name);\r\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1727121408597,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -84,6 +84,6 @@\n \tlink.click();\r\n }\r\n \r\n export function getServicesPrices(name: string) : { name: string, price: number, image: string, discount: number } {\r\n-\treturn Services.find((service) => service.name === name);\r\n+\treturn Services.find((service) => service.name === name)!;\r\n }\n\\ No newline at end of file\n"
                 }
             ],
             "date": 1723256709995,

@@ -91,15 +91,28 @@ const RenderField = ({ field, props }: { field: any; props: Props }) => {
 		case FormFieldType.PHONE:
 			return (
 				<FormControl>
-					<PhoneInput
-						placeholder={placeholder}
-						defaultCountry="PE"
-						international
-						withCountryCallingCode
-						value={field.value as Value | undefined}
-						onChange={field.onChange}
-						className="input-phone"
-					/>
+					<div className='container-phone'>
+						<Input
+							maxLength={9}
+							placeholder={'Ej. 999999999'}
+							value={field.value as Value | undefined}
+							onChange={field.onChange}
+							className="input-phone"
+							
+						></Input>
+						<div
+							aria-hidden="true"
+							className="PhoneInputCountryIcon PhoneInputCountryIcon--border"
+						>
+							<Image
+								className="PhoneInputCountryIconImg"
+								alt="Russia"
+								width={24}
+								height={16}
+								src="https://purecatamphetamine.github.io/country-flag-icons/3x2/PE.svg"
+							/>
+						</div>
+					</div>
 				</FormControl>
 			);
 		case FormFieldType.DATEPICKER:
@@ -170,7 +183,11 @@ const RenderField = ({ field, props }: { field: any; props: Props }) => {
 			return (
 				<div className="rounded-md border border-dark-500 bg-dark-400">
 					<FormControl>
-						<PasswordInput placeholder={placeholder} value={field.value} onChange={field.onChange} />
+						<PasswordInput
+							placeholder={placeholder}
+							value={field.value}
+							onChange={field.onChange}
+						/>
 					</FormControl>
 				</div>
 			);

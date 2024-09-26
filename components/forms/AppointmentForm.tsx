@@ -199,17 +199,19 @@ const AppointmentForm = ({
 								placeholder='Ejemplo: "Deseo atención en el turno mañana. Deseo ser atendido por el doctor Sánchez Valera"'
 							></CustomFormField>
 						</div>
-						<div className="flex flex-col gap-6 xl:flex-row">
-							<a
-								className="text-sm font-medium leading-none underline"
-								href={appointment?.voucherDocumentUrl}
-								target="_blank"
-								rel="noopener noreferrer"
-							>
-								Ver comprobante de pago
-							</a>
-						</div>
 					</>
+				)}
+				{type === 'schedule' && (
+					<div className="flex flex-col gap-6 xl:flex-row">
+						<a
+							className="text-sm font-medium leading-none underline"
+							href={appointment?.voucherDocumentUrl}
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							Ver comprobante de pago
+						</a>
+					</div>
 				)}
 
 				{type === 'create' && (

@@ -35,12 +35,15 @@ const RequestSuccess = async ({
 						alt="success"
 					/>
 					<h2 className="header mb-6 max-w-[600px] text-center">
-						¡Gracias por registrarte {' '}
-						<span className="text-green-500">para separar tu atención médica!</span>
+						¡Gracias por registrarte
+						<span className="text-green-500">
+						{' '}para separar tu atención médica!
+						</span>
 					</h2>
 					<p className="text-center">
-						Te confirmaremos por WhatsApp la disponibilidad del especialista y
-						la forma de pago. <br />{' '}
+						Dentro del horario de atención virtual, de 8:00 am a 5:00 pm, te
+						confirmaremos por WhatsApp tu consulta en la especialidad
+						solicitada. <br />{' '}
 						<span className="text-lg font-semibold">
 							La atención es por orden de llegada.
 						</span>

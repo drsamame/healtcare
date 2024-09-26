@@ -62,7 +62,7 @@ const PatientForm = ({ campaign = false }) => {
 					control={form.control}
 					name="name"
 					label="Nombre Completo"
-					placeholder="Ej. Juan Pérez"
+					placeholder="Ej. Luis Gonzalo Pérez Silva"
 					iconSrc="/assets/icons/user.svg"
 					iconAlt="user"
 				/>
