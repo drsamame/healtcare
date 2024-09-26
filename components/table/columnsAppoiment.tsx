@@ -15,9 +15,10 @@ export const columnsAppoiment: ColumnDef<Appointment>[] = [
 		header: 'Paciente',
 		cell: ({ row }) => {
 			const appointment = row.original;
+			console.log(appointment);
 			return (
 				<p className="text-14-medium">
-					<Link target='_blank' className='underline' href={`/patients/${appointment.userId}/register`}>
+					<Link target='_blank' className='underline' href={`/patients/${appointment.patientId}/register`}>
 						{appointment.patient.name}
 					</Link>
 				</p>

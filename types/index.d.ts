@@ -39,6 +39,7 @@ declare type Patient = {
 };
 
 declare type Appointment = {
+	patientId: string;
 	id: string;
 	aditionalInfo: string | null;
 	schedule: Date;

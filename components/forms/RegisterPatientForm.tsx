@@ -32,15 +32,16 @@ const RegisterForm = ({
 	const router = useRouter();
 	const [isLoading, setIsLoading] = useState(false);
 	const isEdit = useRef(patient ?? false);
+	console.log(patient);
 	const form = useForm<z.infer<typeof PatientFormValidation>>({
 		resolver: zodResolver(PatientFormValidation),
 		defaultValues: {
 			...(isEdit.current
 				? (patient as z.infer<typeof PatientFormValidation>)
 				: PatientFormDefaultValues),
-			userId: user.id,
-			name: user.name,
-			email: user.email,
+			...(!isEdit.current && { userId: user?.id }),
+			...(!isEdit.current && { name: user?.name }),
+			...(!isEdit.current && { email: user?.email }),
 		},
 	});
 
@@ -50,7 +51,7 @@ const RegisterForm = ({
 		setIsLoading(true);
 		try {
 			const patient = {
-				userId: values.userId,
+				userId: values.userId ?? '',
 				name: values.name,
 				email: values.email,
 				phone: values.phone,
@@ -96,7 +97,9 @@ const RegisterForm = ({
 				<section className="mb-12 space-y-6">
 					<div className="mb-9 space-y-1">
 						<h2 className="sub-header">
-							{isEdit.current ? 'Información del Paciente' : 'Información Personal'}
+							{isEdit.current
+								? 'Información del Paciente'
+								: 'Información Personal'}
 						</h2>
 					</div>
 					<CustomFormField
@@ -312,10 +315,14 @@ const RegisterForm = ({
 						label="Yo consiento las políticas de privacidad de Solidaridad San Lorenzo®."
 					/>
 				</section>
+				{!isEdit.current && (
+					<SubmitButton isLoading={isLoading}>
+						{isEdit.current
+							? 'Actualizar Datos Paciente'
+							: 'Registra Tus Datos'}
+					</SubmitButton>
+				)}
 
-				<SubmitButton isLoading={isLoading}>
-					{isEdit.current ? 'Actualizar Datos Paciente' : 'Registra Tus Datos'}
-				</SubmitButton>
 				{form.formState.errors?.root?.serverError.type == 400 && (
 					<p className="text-sm font-medium text-destructive shad-error">
 						{form.formState.errors?.root?.serverError.message}
