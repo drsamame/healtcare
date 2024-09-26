@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 61,
+            "activePatchIndex": 62,
             "patches": [
                 {
                     "date": 1723257979955,
@@ -252,6 +252,10 @@
                 {
                     "date": 1724787637938,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,7 @@\n 'use server';\r\n import { z } from 'zod';\r\n import { PatientFormValidation } from '../validation';\r\n-import { AuthError } from 'next-auth';\r\n import { db } from '../db';\r\n \r\n export const getPatient = async (id: string) => {\r\n \ttry {\r\n@@ -41,61 +40,7 @@\n \t\t});\r\n \t\treturn { success: true, createdId: id };\r\n \t} catch (error) {\r\n \t\tconsole.log(error);\r\n-\t\tif (error instanceof AuthError) {\r\n-\t\t\treturn { error: error.cause?.err?.message };\r\n-\t\t}\r\n \t\treturn { error: 'error 500' };\r\n \t}\r\n };\r\n-'use server';\r\n-import { z } from 'zod';\r\n-import { PatientFormValidation } from '../validation';\r\n-import { AuthError } from 'next-auth';\r\n-import { db } from '../db';\r\n-\r\n-export const getPatient = async (id: string) => {\r\n-\ttry {\r\n-\t\tconst patient = await db.patients.findFirst({\r\n-\t\t\twhere: {\r\n-\t\t\t\tuserId: id,\r\n-\t\t\t},\r\n-\t\t\tselect: {\r\n-\t\t\t\tid: true,\r\n-\t\t\t},\r\n-\t\t});\r\n-\t\tif (!patient) return { error: 'Patient not found' };\r\n-\t\treturn {\r\n-\t\t\tsuccess: true,\r\n-\t\t\tdata: {\r\n-\t\t\t\t...patient,\r\n-\t\t\t},\r\n-\t\t};\r\n-\t} catch (error: any) {\r\n-\t\treturn { error: 'error 500' };\r\n-\t}\r\n-};\r\n-\r\n-export const registerPatient = async (\r\n-\tvalues: z.infer<typeof PatientFormValidation>\r\n-) => {\r\n-\ttry {\r\n-\t\tconst { data, success } = PatientFormValidation.safeParse(values);\r\n-\t\tconsole.log(data);\r\n-\t\tif (!success) {\r\n-\t\t\treturn {\r\n-\t\t\t\terror: 'Invalid data',\r\n-\t\t\t};\r\n-\t\t}\r\n-\t\tconst { id } = await db.patients.create({\r\n-\t\t\tdata,\r\n-\t\t});\r\n-\t\treturn { success: true, createdId: id };\r\n-\t} catch (error) {\r\n-\t\tconsole.log(error);\r\n-\t\tif (error instanceof AuthError) {\r\n-\t\t\treturn { error: error.cause?.err?.message };\r\n-\t\t}\r\n-\t\treturn { error: 'error 500' };\r\n-\t}\r\n-};\r\n"
+                },
+                {
+                    "date": 1727248267554,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,43 @@\n+'use server';\r\n+import { z } from 'zod';\r\n+import { PatientFormValidation } from '../validation';\r\n+import { db } from '../db';\r\n+\r\n+export const getPatient = async (id: string) => {\r\n+\ttry {\r\n+\t\tconst patient = await db.patients.findFirst({\r\n+\t\t\twhere: {\r\n+\t\t\t\tuserId: id,\r\n+\t\t\t}\r\n+\t\t});\r\n+\t\tif (!patient) return { error: 'Patient not found' };\r\n+\t\treturn {\r\n+\t\t\tsuccess: true,\r\n+\t\t\tdata: {\r\n+\t\t\t\t...patient,\r\n+\t\t\t},\r\n+\t\t};\r\n+\t} catch (error: any) {\r\n+\t\treturn { error: 'error 500' };\r\n+\t}\r\n+};\r\n+\r\n+export const registerPatient = async (\r\n+\tvalues: z.infer<typeof PatientFormValidation>\r\n+) => {\r\n+\ttry {\r\n+\t\tconst { data, success } = PatientFormValidation.safeParse(values);\r\n+\t\tif (!success) {\r\n+\t\t\treturn {\r\n+\t\t\t\terror: 'Invalid data',\r\n+\t\t\t};\r\n+\t\t}\r\n+\t\tconst { id } = await db.patients.create({\r\n+\t\t\tdata,\r\n+\t\t});\r\n+\t\treturn { success: true, createdId: id };\r\n+\t} catch (error) {\r\n+\t\tconsole.log(error);\r\n+\t\treturn { error: 'error 500' };\r\n+\t}\r\n+};\r\n"
                 }
             ],
             "date": 1723257979955,

@@ -10,7 +10,7 @@ const AdminPage = async () => {
 		<>
 			<section className="w-full space-y-4">
 				<p className="text-dark-700">
-					Empieza el día administrando las atenciones médicas
+					Plataforma de reserva de atención médica
 				</p>
 			</section>
 			<DownloadReportButton dataTable={data?.appointments as IReportData[]} />
@@ -36,7 +36,10 @@ const AdminPage = async () => {
 							icon={'/assets/icons/cancelled.svg'}
 						/>
 					</section>
-					<DataTable columns={columnsAppoiment} data={data.appointments} />
+					<DataTable
+						columns={columnsAppoiment}
+						data={data.appointments as Appointment[]}
+					/>
 				</>
 			)}
 		</>

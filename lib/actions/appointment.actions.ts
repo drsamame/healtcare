@@ -102,7 +102,7 @@ export const getRecentAppointmentList = async () => {
 				},
 			],
 			include: {
-				patient: true, // All posts where authorId == 20
+				patient: true, 
 			},
 		});
 		const initialCounts = {

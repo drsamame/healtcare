@@ -27,8 +27,8 @@ export const userFormValidation = z
 		phone: z
 			.string()
 			.refine(
-				(phone) => /^\+\d{10,15}$/.test(phone),
-				'Número de teléfono inválido'
+				(phone) => /^9\d{8}$/.test(phone),
+				'Número de teléfono inválidsado'
 			)
 			.optional(),
 	})
@@ -57,8 +57,11 @@ export const userFormCampaignValidation = z
 		phone: z
 			.string()
 			.refine(
-				(phone) => /^\+\d{10,15}$/.test(phone),
-				'Número de teléfono inválido'
+				(phone) =>{ 
+					console.log(phone) 
+					return /^9\d{8}$/.test(phone)
+				} ,
+				'Número de teléfono inválidso'
 			),
 	})
 	.refine((data) => data.password === data.repeatpassword, {
@@ -81,7 +84,7 @@ export const PatientFormValidation = z.object({
 	phone: z
 		.string()
 		.refine(
-			(phone) => /^\+\d{10,15}$/.test(phone),
+			(phone) => /^9\d{8}$/.test(phone),
 			'Número de teléfono inválido'
 		),
 	birthDate: z.coerce.date(),
@@ -113,7 +116,7 @@ export const PatientFormValidation = z.object({
 	emergencyContactNumber: z
 		.string()
 		.refine(
-			(emergencyContactNumber) => /^\+\d{10,15}$/.test(emergencyContactNumber),
+			(emergencyContactNumber) => /^9\d{8}$/.test(emergencyContactNumber),
 			'Número de teléfono de contacto de emergencia inválido'
 		),
 	privacyConsent: z

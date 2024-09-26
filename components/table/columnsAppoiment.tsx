@@ -7,28 +7,32 @@ import Image from 'next/image';
 import { StatusBadge } from '../StatusBadge';
 import { formatDateTime } from '@/lib/utils';
 import { AppointmentModal } from '../AppointmentModal';
+import Link from 'next/link';
 
 export const columnsAppoiment: ColumnDef<Appointment>[] = [
 	{
-		accessorKey: 'patient',
+		accessorKey: 'patient.name',
 		header: 'Paciente',
 		cell: ({ row }) => {
 			const appointment = row.original;
-			return <p className="text-14-medium">{appointment.patient.name}</p>;
-		},
-	},
-	{
-		accessorKey: 'status',
-		header: 'Status',
-		cell: ({ row }) => {
-			const appointment = row.original;
 			return (
-				<div className="min-w-[115px]">
-					<StatusBadge status={appointment.status} />
-				</div>
+				<p className="text-14-medium">
+					<Link target='_blank' className='underline' href={`/patients/${appointment.userId}/register`}>
+						{appointment.patient.name}
+					</Link>
+				</p>
 			);
 		},
 	},
+	{
+		accessorKey: 'patient.phone',
+		header: 'WhatsApp',
+		cell: ({ row }) => {
+			const appointment = row.original;
+			return <p className="text-14-medium">{appointment.patient.phone}</p>;
+		},
+	},
+
 	{
 		accessorKey: 'schedule',
 		header: 'Cita',
@@ -61,6 +65,18 @@ export const columnsAppoiment: ColumnDef<Appointment>[] = [
 						className="size-8"
 					/>
 					<p className="whitespace-nowrap">{doctor?.name}</p>
+				</div>
+			);
+		},
+	},
+	{
+		accessorKey: 'status',
+		header: 'Status',
+		cell: ({ row }) => {
+			const appointment = row.original;
+			return (
+				<div className="min-w-[115px]">
+					<StatusBadge status={appointment.status} />
 				</div>
 			);
 		},

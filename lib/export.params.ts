@@ -37,7 +37,7 @@ export async function ParamsAppoiment(
 			style: { alignment: { horizontal: 'left' as alignment } },
 		},
 		{
-			key: 'specialy',
+			key: 'specialty',
 			style: { alignment: { horizontal: 'left' as alignment } },
 		},
 		{

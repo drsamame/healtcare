@@ -35,6 +35,7 @@ declare interface User {
 declare type Patient = {
 	name: string;
 	id: string;
+	phone: string
 };
 
 declare type Appointment = {

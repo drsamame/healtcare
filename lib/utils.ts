@@ -1,5 +1,6 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { Services } from '@/constants';
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
@@ -81,4 +82,8 @@ export async function downloadFile(filename: string, blob: Blob) {
 	link.setAttribute('download', filename);
 	document.body.appendChild(link);
 	link.click();
+}
+
+export function getServicesPrices(name: string) : { name: string, price: number, image: string, discount: number } {
+	return Services.find((service) => service.name === name)!;
 }
